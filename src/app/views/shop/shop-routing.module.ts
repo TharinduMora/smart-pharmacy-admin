@@ -1,35 +1,27 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {AdminListComponent} from './admin-list/admin-list.component';
 import {ComTabComponent} from '../../core/com-tab/com-tab.component';
-import {AdminViewComponent} from './admin-view/admin-view.component';
+import {ShopListComponent} from './shop-list/shop-list.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ComTabComponent,
     data: {
-      title: 'Admin Management',
-      rootPath: '/admin',
+      title: 'Shop Management',
+      rootPath: '/shop',
       tabList: [
         {
-          title: 'Admin List',
+          title: 'Shop List',
           // functions: ['FIND_ADMIN_BY_CRITERIA'],
           functions: ['FIND_ADMIN_BY_CRITERIA'],
           active: false,
           route: '/list'
-        },
-        {
-          title: 'Admin View',
-          functions: ['FIND_ADMIN_BY_CRITERIA'],
-          active: false,
-          route: '/view'
         }
       ]
     },
     children: [
-      {path: 'list', component: AdminListComponent},
-      {path: 'view', component: AdminViewComponent}
+      {path: 'list', component: ShopListComponent}
     ]
   }
 ];
@@ -38,5 +30,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdminRoutingModule {
+export class ShopRoutingModule {
 }

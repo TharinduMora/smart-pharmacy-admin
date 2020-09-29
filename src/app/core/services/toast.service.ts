@@ -5,7 +5,7 @@ import {ToastrManager} from 'ng6-toastr-notifications';
 @Injectable()
 export class ToastService {
 
-  private toastrOptions: any = {toastTimeout: 2000, showCloseButton: true, position: 'top-right'};
+  private toastrOptions: any = {toastTimeout: 3000, showCloseButton: true, position: 'top-left'};
 
   constructor(public toastr: ToastrManager) {}
 

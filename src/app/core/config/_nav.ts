@@ -11,12 +11,24 @@ export const navigation = [
   {
     menu: true,
     functions: ['FIND_ADMIN_BY_CRITERIA'],
-    name: 'Admin Management',
+    name: 'Admin',
     children: [
       {
         functions: ['FIND_ADMIN_BY_CRITERIA'],
-        name: 'Admin List',
-        url: '/admin/list',
+        name: 'Admin Management',
+        url: '/admin',
+        icon: 'fas fa-award'
+      }]
+  },
+  {
+    menu: true,
+    functions: ['FIND_ADMIN_BY_CRITERIA'],
+    name: 'Shop',
+    children: [
+      {
+        functions: ['FIND_ADMIN_BY_CRITERIA'],
+        name: 'Shop Management',
+        url: '/shop',
         icon: 'fas fa-award'
       }]
   },

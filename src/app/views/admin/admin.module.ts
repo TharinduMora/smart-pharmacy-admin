@@ -1,17 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { AdminRoutingModule } from './admin-routing.module';
-import { AdminListComponent } from './admin-list/admin-list.component';
-import { ManageAdminComponent } from './manage-admin.component';
-import {TabsModule} from 'ngx-bootstrap/tabs';
+import {AdminRoutingModule} from './admin-routing.module';
+import {AdminListComponent} from './admin-list/admin-list.component';
+import {ComTabModule} from '../../core/com-tab/com-tab.module';
+import {AdminViewComponent} from './admin-view/admin-view.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    TabsModule,
+    ComTabModule,
     AdminRoutingModule
   ],
-  declarations: [AdminListComponent, ManageAdminComponent]
+  declarations: [AdminListComponent, AdminViewComponent]
 })
-export class AdminModule { }
+export class AdminModule {
+}
