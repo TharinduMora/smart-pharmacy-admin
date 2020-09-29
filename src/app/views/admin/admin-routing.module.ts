@@ -14,14 +14,13 @@ const routes: Routes = [
       tabList: [
         {
           title: 'Admin List',
-          // functions: ['FIND_ADMIN_BY_CRITERIA'],
           functions: ['FIND_ADMIN_BY_CRITERIA'],
           active: false,
           route: '/list'
         },
         {
           title: 'Admin View',
-          functions: ['FIND_ADMIN_BY_CRITERIA'],
+          functions: ['VIEW_ADMIN_DETAILS'],
           active: false,
           route: '/view'
         }

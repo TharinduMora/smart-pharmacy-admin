@@ -1,12 +1,12 @@
 export const navigation = [
   {
+    title: true,
+    name: 'Smart Pharmacy Admin'
+  },
+  {
     name: 'Dashboard',
     url: '/dashboard',
     icon: 'icon-speedometer'
-  },
-  {
-    title: true,
-    name: 'Admin'
   },
   {
     menu: true,
@@ -22,11 +22,11 @@ export const navigation = [
   },
   {
     menu: true,
-    functions: ['FIND_ADMIN_BY_CRITERIA'],
+    functions: ['FIND_SHOP_BY_CRITERIA'],
     name: 'Shop',
     children: [
       {
-        functions: ['FIND_ADMIN_BY_CRITERIA'],
+        functions: ['FIND_SHOP_BY_CRITERIA'],
         name: 'Shop Management',
         url: '/shop',
         icon: 'fas fa-award'
