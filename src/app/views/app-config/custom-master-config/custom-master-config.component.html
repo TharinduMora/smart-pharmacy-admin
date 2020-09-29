@@ -1,0 +1,52 @@
+<div class="animated fadeIn">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-6">
+          <i class="fa fa-align-justify"></i> Custom Master Key
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-9 text-right">
+              <select id="select" name="select" class="form-control form-control-sm" [(ngModel)]='domainSelected' (ngModelChange)='onDomainSelected()'>
+                <option [ngValue] = "null">- SELECT DOMAIN -</option>
+                <option class='option' *ngFor='let domain of domainList' [ngValue]="domain">{{domain.name}}</option>
+              </select>
+            </div>
+            <div class="col-md-3 text-right">
+              <button type="button" class="btn btn-sm btn-primary" (click)="onClickAddBtn()">Add New</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered table-striped table-sm table-responsive-md">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th width="50"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of masterData | keys">
+            <td>{{data.key}}</td>
+            <td>{{data.value}}</td>
+            <td>
+              <button type="button" class="btn action-btn btn-sm btn-primary"
+                      [disabled]="data.key === '_id' || data.key === 'masterDataId' || data.key === 'status'"
+                      (click)="onClickEditKey(data);">
+                <i class="fas fa-edit"></i>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="(masterData | json) === ({} | json)">
+            <td colspan="3" style="text-align: center">no record found !</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

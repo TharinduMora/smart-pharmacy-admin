@@ -1,0 +1,117 @@
+
+<table class="table table-bordered table-striped table-sm table-responsive-md">
+
+  <thead>
+  <tr>
+    <th *ngFor="let column of gridConfig.columns;" [ngClass]="column.headerClass?column.headerClass:'text-left'">
+        <span *ngIf="column?.sort" style="cursor:pointer" (click)="onClickSortBtn(column);">
+          <i class="fas fa-sort" [ngClass]="column.sortConfig.value==='asc'?'fa-sort-down':column.sortConfig.value==='desc'?'fa-sort-up':'fa-sort'" aria-hidden="true"></i> &nbsp;
+        </span>
+      <span>{{column.name}}</span>
+      <input *ngIf="column.columnType === 'checkbox'" type="checkbox" (change)="onChangeCheckAllRows()" [(ngModel)]="gridConfig.checkAllRows">
+      <span *ngIf="column?.filter;" #FilterBoxList>
+            &nbsp;
+            <div class="btn-group filter-dropdown" dropdown [autoClose]="false" [isOpen]="column.filterPanelOpen" (isOpenChange)="onChangeFilterDropDown($event,column)" style="margin-top: -5px;">
+              [
+                <a href="javascript:void(0);" class="dropdown-toggle" (click)="onClickOpenFilter(column);" dropdownToggle [ngClass]="column.filtered?'active':''">
+                  <i style="font-size: 12px;" class="fa-1x fas fa-filter" aria-hidden="true"></i>
+                </a>
+              ]
+              <div *dropdownMenu class="dropdown-menu row" role="menu">
+                <div class="row">
+                  <div class="col-md-12" style="padding-bottom: 3px;">
+                    <select id="select" name="select" class="form-control form-control-sm" [(ngModel)]="column.filterConfig.defaultOperator">
+                      <option *ngIf="column.filterConfig?.operators.like" value="like">Like</option>
+                      <option *ngIf="column.filterConfig?.operators.eq" value="eq">Equal to</option>
+                      <option *ngIf="column.filterConfig?.operators.gt" value="gt">Greater Than</option>
+                      <option *ngIf="column.filterConfig?.operators.gte" value="gte">Greater Than or Equal</option>
+                      <option *ngIf="column.filterConfig?.operators.lt" value="lt">Less Than</option>
+                      <option *ngIf="column.filterConfig?.operators.lte" value="lte">Less Than or Equal</option>
+                    </select>
+                  </div>
+                  <div class="col-md-12" style="padding-bottom: 3px;">
+                    <span [ngSwitch]="column.filterConfig.type">
+                      <select *ngSwitchCase="'option'" class="form-control form-control-sm" [(ngModel)]="column.filterConfig.value">
+                        <option value=""> -Select- </option>
+                        <option *ngFor="let option of column.filterConfig.options;" value="{{option.key}}">{{option.value}}</option>
+                      </select>
+                      <input *ngSwitchDefault [(ngModel)]="column.filterConfig.value" type="{{column.filterConfig.type?column.filterConfig.type:'text'}}" class="form-control form-control-sm">
+                    </span>
+                  </div>
+                  <div class="col-md-6" style="padding-right: 5px;">
+                    <button type="button" class="btn btn-success btn-block btn-sm" (click)="onClickFilterBtn($event,column);">Filter</button>
+                  </div>
+                  <div class="col-md-6" style="padding-left: 5px;">
+                    <button type="button" class="btn btn-secondary btn-block btn-sm" (click)="onClickFilterClearBtn($event,column);">Clear</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </span>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <ng-container *ngIf="(gridConfig?.records.length > 0)">
+    <tr *ngFor="let record of gridConfig.records; let i = index" [ngClass]="record.trClass? record.trClass : '' ">
+      <td *ngFor="let column of gridConfig.columns" [ngClass] = "column.tdClass" [attr.width] = "column.width" [ngStyle]="column.dataStyle?column.dataStyle:''">
+
+        <span [ngSwitch]="column.columnType">
+          <input *ngSwitchCase = "'checkbox'" type="checkbox" [(ngModel)]="record.check" (change)="onChangeRowCheckBox()">
+
+          <img *ngSwitchCase = "'image'" attr.src="{{record[column.key]}}" alt="no image" class="img-thumbnail">
+
+          <span *ngSwitchCase = "'button'">
+            <button *ngIf = "!column.buttonConfig.type" title="{{column.buttonConfig.name}}" type="button"
+                    [disabled]="column.buttonConfig.disabledCondition?(column.buttonConfig.disabledCondition.values.indexOf(record[column.buttonConfig.disabledCondition.key]) > -1) : false"
+                    class="btn action-btn btn-sm" [ngClass]="column.buttonConfig.class?column.buttonConfig.class:'btn-default'" (click)="onClickActionBtn(column.buttonConfig.action,record);">
+              <i [ngClass]="column.buttonConfig.icon?column.buttonConfig.icon:''"></i>
+            </button>
+            <div *ngIf = "column.buttonConfig.type === 'menu'" class="btn-group" dropdown>
+              <button dropdownToggle type="button" placement="bottom right"
+                      aria-controls="dropdown-disabled-menu" title="{{column.buttonConfig.name}}"
+                      [disabled]="column.buttonConfig.disabledCondition?(column.buttonConfig.disabledCondition.values.indexOf(record[column.buttonConfig.disabledCondition.key]) > -1) : false"
+                      class="btn action-btn btn-sm dropdown-toggle " [ngClass]="column.buttonConfig.class?column.buttonConfig.class:'btn-default'">
+              <i [ngClass]="column.buttonConfig.icon?column.buttonConfig.icon:''"></i>
+            </button>
+              <ul id="dropdown-disabled-menu" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+                  role="menu" aria-labelledby="button-disabled-menu">
+                <li role="menuitem" *ngFor="let menu of column.buttonConfig.menus || []">
+                  <a class="dropdown-item"  href="javascript:void(0)" (click)="onClickActionBtn(menu.action,record);">
+                    <i [ngClass]="menu.icon?menu.icon:''" [ngStyle]="menu.style?menu.style:{}"></i> {{menu.name}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+        </span>
+
+          <span *ngSwitchDefault [ngStyle]="record.row[column.key].style">
+                {{record.row[column.key].value}}
+          </span>
+        </span>
+      </td>
+    </tr>
+  </ng-container>
+  <tr *ngIf="gridConfig.waitingHttpSve">
+    <td attr.colspan="{{gridConfig.columns.length}}" style="text-align: center">
+      <i *ngFor="let column of gridConfig.columns" class="fa fa-spinner fa-pulse"></i>
+    </td>
+  </tr>
+  <tr *ngIf="!(gridConfig.records?.length > 0) && !(gridConfig.waitingHttpSve)">
+    <td attr.colspan="{{gridConfig.columns.length}}" style="text-align: center">no record found !</td>
+  </tr>
+  </tbody>
+
+</table>
+
+<div class="row">
+  <div class="col-md-6">
+    <pagination [totalItems]="gridConfig.pagination.bigTotalItems" [itemsPerPage]="gridConfig.pagination.itemsPerPage" [(ngModel)]="gridConfig.pagination.bigCurrentPage" [maxSize]="gridConfig.pagination.maxSize" class="pagination-sm"
+                [boundaryLinks]="true" [rotate]="false" (pageChanged)="onPageChange($event)"></pagination>
+  </div>
+  <div class="col text-right">
+    <label style="color: #0275d8;">(Total Items {{gridConfig.pagination.bigTotalItems}})</label>
+    <button type="button" class="btn btn-primary btn-sm" (click)="onClickRefresh();"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</button>
+  </div>
+</div>

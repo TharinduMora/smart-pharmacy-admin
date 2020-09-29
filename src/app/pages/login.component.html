@@ -1,0 +1,48 @@
+<div class="app flex-row align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card-group">
+          <div class="card p-4">
+            <div class="card-body">
+              <form role="form" (ngSubmit)="onLoggedIn(f)" #f="ngForm">
+                <h1>Smart Pharmacy Admin</h1>
+                <p class="text-muted">Sign In to your account</p>
+                <div class="input-group mb-3">
+                  <span class="input-group-addon"><i class="icon-user"></i></span>
+                  <input type="text" class="form-control" placeholder="Username"
+                         required
+                         [(ngModel)]="loginReq.loginName" name="loginName" #loginName="ngModel">
+                  <div *ngIf="loginName.invalid && (f.submitted || loginName.dirty || loginName.touched)" class="required-alert alert alert-danger">
+                    <span *ngIf="loginName.errors.required">
+                      This field is required.
+                    </span>
+                  </div>
+                </div>
+                <div class="input-group mb-4">
+                  <span class="input-group-addon"><i class="icon-lock"></i></span>
+                  <input type="password" class="form-control" placeholder="Password"
+                         required
+                         [(ngModel)]="loginReq.password" name="password" #password="ngModel">
+                  <div *ngIf="password.invalid && (f.submitted || password.dirty || password.touched)" class="required-alert alert alert-danger">
+                    <span *ngIf="password.errors.required">
+                      This field is required.
+                    </span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <button type="submit" class="btn btn-primary px-4">Login</button>
+                  </div>
+                  <div class="col-6 text-right">
+                    <button type="button" disabled class="btn btn-link px-0">Forgot password?</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
