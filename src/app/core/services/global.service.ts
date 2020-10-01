@@ -15,7 +15,7 @@ export class GlobalService {
 
   public getAvailableFunctions(functionKeyList: any) {
     const functionConfig = FunctionConfig.FUNCTIONS || {};
-    const functionIdList = this.gVariable.authentication.data.functions || [];
+    const functionIdList = this.gVariable.authentication.functions || [];
     const functionsMap: any = {};
     functionsMap.AT_LEAST_ONE = false;
     (functionKeyList || []).forEach((funcKey: any) => {

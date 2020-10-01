@@ -1,3 +1,39 @@
-<p>
-  admin-list works!
-</p>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Admin List
+          <button class="float-right btn btn-primary" >Add New</button>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>User Name</th>
+              <th>Email</th>
+              <th>Full Name</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let admin of adminList; let i = index">
+              <td>{{admin.userName}}</td>
+              <td>{{admin.email}}</td>
+              <td>{{admin.fullName}}</td>
+              <td>{{admin.status | statusPipe}}</td>
+              <td>
+                <button class="btn btn-success" (click)="onClickView(admin)" >View</button>
+                <button class="btn btn-warning" (click)="onClickEdit(admin)" >Edit</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <pagination [totalItems]="recordCount" [itemsPerPage]="pageSize" [maxSize]="2" class="pagination-sm"
+                      [boundaryLinks]="true" [rotate]="false" (pageChanged)="onPageChange($event)"></pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       this.adminSev.login(Object.assign({}, form.value))
         .then((data: any) => {
           // console.log(data);
-          this.guard.createAuthentication(data);
+          this.guard.createAuthentication(data.data);
           this.getConfigDetailsFromBackend();
         }).catch((error: any) => {
         this.gVariable.waitingAppInit = false;

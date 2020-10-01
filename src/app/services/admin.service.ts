@@ -29,8 +29,6 @@ export class AdminService {
   }
 
   public adminFindByCriteria(req: any) {
-    req.shopId = this.gVariable.shopId || 0;
-    req.branchId = this.gVariable.branchId || 0;
     const formattedReq = req;
     return new Promise((resolve, reject) =>
       this.httpService.httpPost(ApiServiceConfig.ADMIN_API_SERVICE, '/findByCriteria', formattedReq, {})
