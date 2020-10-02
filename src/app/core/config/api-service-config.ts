@@ -6,17 +6,19 @@ export class ApiServiceConfig {
     ROUTE_PATH : '/admin'
   };
 
+  public static MASTER_DATA_API_SERVICE = {
+    NAME : 'Master data Service',
+    KEY : 'GBL_SEV',
+    ROUTE_PATH : '/masterData'
+  };
+
+
   public static BRANCH_API_SERVICE = {
     NAME : 'Branch Management Service',
     KEY : 'GBL_SEV',
     ROUTE_PATH : '/branch_service'
   };
 
-  public static MASTER_DATA_API_SERVICE = {
-    NAME : 'Master data Service',
-    KEY : 'GBL_SEV',
-    ROUTE_PATH : '/master_data_service'
-  };
 
   public static MASTER_DATA_MGT_API_SERVICE = {
     NAME : 'Master data mgt Service',
@@ -33,7 +35,7 @@ export class ApiServiceConfig {
   public static IMG_API_SERVICE = {
     NAME: 'Image-Management-Services',
     KEY : 'GBL_SEV',
-    ROUTE_PATH: '/image_service'
+    ROUTE_PATH: '/upload'
   };
 
   public static ROLE_API_SERVICE = {

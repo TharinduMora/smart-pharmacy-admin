@@ -6,8 +6,10 @@ import {AdminListComponent} from './admin-list/admin-list.component';
 import {ComTabModule} from '../../core/com-tab/com-tab.module';
 import {AdminViewComponent} from './admin-view/admin-view.component';
 import {PipeModule} from '../../core/pipe';
-import {PaginationModule} from 'ngx-bootstrap';
+import {ModalModule, PaginationModule} from 'ngx-bootstrap';
 import {FormsModule} from '@angular/forms';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {FileUploadModule} from '../../core/file-upload';
 
 @NgModule({
   imports: [
@@ -16,9 +18,13 @@ import {FormsModule} from '@angular/forms';
     AdminRoutingModule,
     PipeModule,
     FormsModule,
-    PaginationModule.forRoot()
+    ModalModule.forRoot(),
+    PaginationModule.forRoot(),
+    NgSelectModule,
+    FileUploadModule
   ],
-  declarations: [AdminListComponent, AdminViewComponent]
+  declarations: [AdminListComponent, AdminViewComponent],
+  entryComponents: [AdminViewComponent]
 })
 export class AdminModule {
 }

@@ -17,12 +17,6 @@ const routes: Routes = [
           functions: ['FIND_ADMIN_BY_CRITERIA'],
           active: false,
           route: '/list'
-        },
-        {
-          title: 'Admin View',
-          functions: ['VIEW_ADMIN_DETAILS'],
-          active: false,
-          route: '/view'
         }
       ]
     },

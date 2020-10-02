@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminService} from '../../../services';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import {AdminViewComponent} from '../admin-view/admin-view.component';
 
 @Component({
   selector: 'app-admin-list',
@@ -8,23 +10,71 @@ import {AdminService} from '../../../services';
 })
 export class AdminListComponent implements OnInit {
 
-  // currentPageNo = 0;
-  pageSize = 1;
-  sevReq = {
-    'offset': 0,
-    'limit': this.pageSize,
-    'searchKeys': [],
-    'values': [],
-    'operators': []
-  };
-  adminList: any[] = [];
-  recordCount = 0;
+  bsModalRef: BsModalRef;
 
-  constructor(private adminSev: AdminService) {
+  pagination = {
+    pageSize: 1,
+    itemsPerPage: 2,
+    maxPageNumberCount: 2,
+    recordCount: 0
+  };
+
+  sevReq: any;
+
+  gridRecordList: any[] = [];
+
+  constructor(private adminSev: AdminService, public modalService: BsModalService) {
+  }
+
+  initSevReq() {
+    this.sevReq = {
+      'offset': 0,
+      'limit': this.pagination.itemsPerPage,
+      'searchKeys': [],
+      'values': [],
+      'operators': []
+    };
   }
 
   ngOnInit() {
-    this.getAdminList();
+    this.initSevReq();
+    this.getGridRecordList();
+  }
+
+  onGridAction(action, data) {
+    switch (action) {
+      case 'add':
+        this.openAdminForm(action, data);
+        break;
+      case 'edit':
+        this.openAdminForm(action, data);
+        break;
+      default:
+        break;
+    }
+  }
+
+  openAdminForm(action, data) {
+    const modelConfig: any = {
+      class: 'modal-lg',
+      animated: true,
+      keyboard: true,
+      backdrop: true,
+      ignoreBackdropClick: true
+    };
+
+    this.bsModalRef = null;
+    this.bsModalRef = this.modalService.show(AdminViewComponent, modelConfig);
+    this.bsModalRef.content.action = action;
+    this.bsModalRef.content.data = data;
+    this.bsModalRef.content.onClose.subscribe(response => {
+      console.log(response);
+      // if (this.action === 'add' && response.adminId) {
+      //   this.onCallGridEvent('add', response || {});
+      // } else if (this.action === 'edit' && response.adminId) {
+      //   this.onCallGridEvent('edit', response || {});
+      // }
+    });
   }
 
   onClickEdit(item) {
@@ -36,15 +86,16 @@ export class AdminListComponent implements OnInit {
   }
 
   onPageChange(event) {
-    this.sevReq.offset = (event.page - 1) * this.pageSize;
-    this.getAdminList();
+    this.sevReq.offset = (event.page - 1) * this.pagination.itemsPerPage;
+    this.getGridRecordList();
   }
 
-  getAdminList() {
+  getGridRecordList() {
+    this.gridRecordList = [];
     this.adminSev.adminFindByCriteria(this.sevReq).then((res: any) => {
-      this.adminList = res.data;
-      if (this.recordCount === 0) {
-        this.recordCount = res.recordCount;
+      this.gridRecordList = res.data;
+      if (this.pagination.recordCount === 0) {
+        this.pagination.recordCount = res.recordCount;
       }
     });
 

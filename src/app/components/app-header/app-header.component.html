@@ -10,7 +10,7 @@
   </button>
   <ul class="nav navbar-nav d-md-down-none">
     <li class="nav-item px-3">
-      <a class="nav-link" href="javascript:void(0)">gBeetle Super Admin ({{gVariable.authentication.shopName}})</a>
+<!--      <a class="nav-link" href="javascript:void(0)">gBeetle Super Admin ({{gVariable.authentication.shopName}})</a>-->
     </li>
   </ul>
   <ul class="nav navbar-nav ml-auto">
@@ -22,10 +22,10 @@
     <li class="nav-item dropdown" dropdown placement="bottom right" style="padding-right: 10px;">
       <a class="nav-link" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
         <!--<img src="assets/images/avatars/1.jpg" class="img-avatar" alt="User"/> Nevil-->
-        <span>Hi {{gVariable.authentication.name}} </span> <i class="fa-2x fas fa-user-circle"></i>
+        <span>Hi {{gVariable.authentication.fullName}} </span> <i class="fa-2x fas fa-user-circle"></i>
       </a>
       <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-        <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-user"></i>Hi {{gVariable.authentication.name}}</a>
+        <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-user"></i>Hi {{gVariable.authentication.fullName}}</a>
         <!--<a class="dropdown-item" href="javascript:void(0)" (click)="onClickChangePassword();"><i class="fa fa-wrench"></i> Change Password</a>-->
         <div class="divider"></div>
         <a class="dropdown-item" href="javascript:void(0)" (click)="onLogOut();"><i class="fa fa-lock"></i> Logout</a>
