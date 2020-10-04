@@ -14,8 +14,8 @@ export class AdminListComponent implements OnInit {
 
   pagination = {
     pageSize: 1,
-    itemsPerPage: 2,
-    maxPageNumberCount: 2,
+    itemsPerPage: 3,
+    maxPageNumberCount: 5,
     recordCount: 0
   };
 
@@ -67,26 +67,35 @@ export class AdminListComponent implements OnInit {
     this.bsModalRef = this.modalService.show(AdminViewComponent, modelConfig);
     this.bsModalRef.content.action = action;
     this.bsModalRef.content.data = data;
-    this.bsModalRef.content.onClose.subscribe(response => {
-      console.log(response);
-      // if (this.action === 'add' && response.adminId) {
-      //   this.onCallGridEvent('add', response || {});
-      // } else if (this.action === 'edit' && response.adminId) {
-      //   this.onCallGridEvent('edit', response || {});
-      // }
+    this.bsModalRef.content.onClose.subscribe((response: any) => {
+      if (action === 'add' && response.id) {
+        this.onAddNewItem(response);
+      } else if (action === 'edit' && response.id) {
+        this.onEditItem(response);
+      }
     });
   }
 
-  onClickEdit(item) {
-    console.log(item);
+  onAddNewItem(item) {
+    this.gridRecordList.push(item);
   }
 
-  onClickView(item) {
-    console.log(item);
+  onEditItem(EditedItem) {
+    this.gridRecordList = this.gridRecordList.map((existingRecord) => {
+      if (existingRecord.id === EditedItem.id) {
+        return EditedItem;
+      } else {
+        return existingRecord;
+      }
+    });
   }
 
   onPageChange(event) {
     this.sevReq.offset = (event.page - 1) * this.pagination.itemsPerPage;
+    this.getGridRecordList();
+  }
+
+  onClickRefresh() {
     this.getGridRecordList();
   }
 

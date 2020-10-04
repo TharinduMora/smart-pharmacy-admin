@@ -10,7 +10,7 @@ import {EventEmitterService, GlobalService, GlobalVariable, GuardService, HttpSe
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent  implements OnInit {
+export class AppComponent implements OnInit {
 
   constructor(private translate: TranslateService,
               private router: Router,
@@ -39,7 +39,7 @@ export class AppComponent  implements OnInit {
         this.initApp();
         this.gVariable.waitingAppInit = false;
       }).catch((error: any) => {
-        console.log(error);
+      console.log(error);
     });
   }
 
@@ -108,7 +108,8 @@ export class AppComponent  implements OnInit {
         this.toast.showError('404 Not Found.');
         break;
       case 400:
-        this.toast.showError('Bad Request.');
+        console.log(response.error.message);
+        this.toast.showError(response.error.message || 'Bad Request.');
         break;
       case 500:
         this.toast.showError('System Error.');

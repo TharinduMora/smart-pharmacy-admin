@@ -1,68 +1,77 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap';
 import {Subject} from 'rxjs';
 import {NgForm} from '@angular/forms';
-import {MasterDataService} from '../../../services';
+import {AdminService, MasterDataService} from '../../../services';
 
 @Component({
   selector: 'app-admin-view',
   templateUrl: './admin-view.component.html',
   styleUrls: ['./admin-view.component.css']
 })
-export class AdminViewComponent implements OnInit {
+export class AdminViewComponent implements OnInit, AfterViewInit {
 
   public onClose: Subject<boolean>;
   public action: string;
   public data: any = {};
-  public category: any = {};
+  public admin: any = {};
   public shopList: any[] = [];
-  public roleList: any[] = [];
 
   constructor(
     public bsModalRef: BsModalRef,
-    private masterDataService: MasterDataService
+    private masterDataService: MasterDataService,
+    private adminService: AdminService,
   ) {
     this.onClose = new Subject();
   }
 
   ngOnInit() {
     this.getShopList();
-    this.getRoleList();
-    this.category.shopId = 2;
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      if (this.action === 'edit') {
+        this.admin = this.data;
+      }
+    }, 100);
   }
 
   getShopList() {
-    this.masterDataService.getAllShopList().then((res : any) => {
+    this.masterDataService.getAllShopList().then((res: any) => {
       if (res && res.status === 1) {
         this.shopList = res.data;
       }
-      // console.log(res);
     });
   }
 
-  getRoleList() {
-    this.masterDataService.getAllRoleList().then((res : any) => {
+  createAdmin(req: any) {
+    this.adminService.createNewAdmin(req).then((res: any) => {
       if (res && res.status === 1) {
-        this.roleList = res.data;
+        this.onCloseModal(res.data);
+      }
+    });
+  }
+
+  updateAdmin(req: any) {
+    this.adminService.updateAdmin(req).then((res: any) => {
+      if (res && res.status === 1) {
+        this.onCloseModal(this.admin);
       }
     });
   }
 
   onSubmit(form: NgForm) {
-    // console.log(form);
     if (form.valid) {
       if (this.action === 'add') {
-        console.log(form);
-        // this.createCategory(form,this.category);
+        this.createAdmin(form.value);
       } else if (this.action === 'edit') {
-        console.log(form);
-        // this.updateCategory(this.category);
+        this.updateAdmin(this.admin);
       }
     }
   }
 
   onCloseModal(response: any = {}) {
-    // const response: any = {};
     this.onClose.next(response);
     this.bsModalRef.hide();
   }

@@ -30,8 +30,19 @@
             </tr>
             </tbody>
           </table>
-          <pagination [totalItems]="pagination.recordCount" [itemsPerPage]="pagination.itemsPerPage" [maxSize]="pagination.maxPageNumberCount" class="pagination-sm"
-                      [boundaryLinks]="true" [rotate]="false" (pageChanged)="onPageChange($event)"></pagination>
+
+          <div class="row">
+            <div class="col-md-6">
+              <pagination [totalItems]="pagination.recordCount" [itemsPerPage]="pagination.itemsPerPage" [maxSize]="pagination.maxPageNumberCount" class="pagination-sm"
+                          [boundaryLinks]="true" [rotate]="false" (pageChanged)="onPageChange($event)"></pagination>
+            </div>
+            <div class="col text-right">
+              <label style="color: #0275d8;padding-right: 5px;">(Total Items {{pagination.recordCount}}) </label>
+              <button type="button" class="btn btn-primary btn-sm" (click)="onClickRefresh();"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</button>
+            </div>
+          </div>
+<!--          <pagination [totalItems]="pagination.recordCount" [itemsPerPage]="pagination.itemsPerPage" [maxSize]="pagination.maxPageNumberCount" class="pagination-sm"-->
+<!--                      [boundaryLinks]="true" [rotate]="false" (pageChanged)="onPageChange($event)"></pagination>-->
         </div>
       </div>
     </div>
