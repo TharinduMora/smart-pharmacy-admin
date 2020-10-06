@@ -1,3 +1,52 @@
-<p>
-  shop-list works!
-</p>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Shop List
+          <button class="float-right btn btn-primary" *ngIf="actionRestrictionConfig.ADD.isEnable" (click)="onGridAction('add',null)" >Add New</button>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>City</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let record of gridRecordList; let i = index">
+              <td>{{record.name || 'N/A'}}</td>
+              <td>{{record.email || 'N/A'}}</td>
+              <td>{{record.address || 'N/A'}}</td>
+              <td>{{record.city || 'N/A'}}</td>
+              <td>{{record.status | statusPipe}}</td>
+              <td>
+                <button class="btn btn-success" *ngIf="actionRestrictionConfig.VIEW.isEnable" (click)="onGridAction('view',record)" >View</button>
+                <button class="btn btn-warning" *ngIf="actionRestrictionConfig.EDIT.isEnable" (click)="onGridAction('edit',record)" >Edit</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+          <div class="row">
+            <div class="col-md-6">
+              <pagination [totalItems]="pagination.recordCount" [itemsPerPage]="pagination.itemsPerPage" [maxSize]="pagination.maxPageNumberCount" class="pagination-sm"
+                          [boundaryLinks]="true" [rotate]="false" (pageChanged)="onPageChange($event)"></pagination>
+            </div>
+            <div class="col text-right">
+              <label style="color: #0275d8;padding-right: 5px;">(Total Items {{pagination.recordCount}}) </label>
+              <button type="button" class="btn btn-primary btn-sm" (click)="onClickRefresh();"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</button>
+            </div>
+          </div>
+          <!--          <pagination [totalItems]="pagination.recordCount" [itemsPerPage]="pagination.itemsPerPage" [maxSize]="pagination.maxPageNumberCount" class="pagination-sm"-->
+          <!--                      [boundaryLinks]="true" [rotate]="false" (pageChanged)="onPageChange($event)"></pagination>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

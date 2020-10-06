@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AdminService} from '../../../services';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {AdminViewComponent} from '../admin-view/admin-view.component';
+import {GlobalService} from '../../../core/services';
 
 @Component({
   selector: 'app-admin-list',
@@ -11,6 +12,25 @@ import {AdminViewComponent} from '../admin-view/admin-view.component';
 export class AdminListComponent implements OnInit {
 
   bsModalRef: BsModalRef;
+
+  actionRestrictionConfig = {
+    VIEW: {
+      isEnable: false,
+      functions: ['VIEW_ADMIN_DETAILS']
+    },
+    ADD: {
+      isEnable: false,
+      functions: ['CREATE_ADMIN']
+    },
+    EDIT: {
+      isEnable: false,
+      functions: ['UPDATE_ADMIN']
+    },
+    UPDATE_STATUS: {
+      isEnable: false,
+      functions: ['UPDATE_ADMIN_STATUS']
+    }
+  };
 
   pagination = {
     pageSize: 1,
@@ -23,7 +43,9 @@ export class AdminListComponent implements OnInit {
 
   gridRecordList: any[] = [];
 
-  constructor(private adminSev: AdminService, public modalService: BsModalService) {
+  constructor(private adminSev: AdminService, public modalService: BsModalService,
+              private gSev: GlobalService) {
+    this.actionRestrictionConfig = this.gSev.getActionRestrictionConfigByConfigObj(this.actionRestrictionConfig);
   }
 
   initSevReq() {
@@ -47,6 +69,9 @@ export class AdminListComponent implements OnInit {
         this.openAdminForm(action, data);
         break;
       case 'edit':
+        this.openAdminForm(action, data);
+        break;
+      case 'view':
         this.openAdminForm(action, data);
         break;
       default:

@@ -11,7 +11,8 @@ export class GlobalService {
 
   constructor(private gVariable: GlobalVariable,
               private guardSev: GuardService,
-              @Inject(LOCAL_STORAGE) private storage: WebStorageService) {}
+              @Inject(LOCAL_STORAGE) private storage: WebStorageService) {
+  }
 
   public getAvailableFunctions(functionKeyList: any) {
     const functionConfig = FunctionConfig.FUNCTIONS || {};
@@ -23,6 +24,13 @@ export class GlobalService {
       functionsMap.AT_LEAST_ONE = functionsMap[funcKey] ? true : functionsMap.AT_LEAST_ONE;
     });
     return functionsMap;
+  }
+
+  public getActionRestrictionConfigByConfigObj(ConfigObj) {
+    Object.keys(ConfigObj).forEach((key) => {
+      ConfigObj[key].isEnable = this.getAvailableFunctions(ConfigObj[key].functions).AT_LEAST_ONE;
+    });
+    return ConfigObj;
   }
 
   public loadWebStorage() {
@@ -46,7 +54,7 @@ export class GlobalService {
           childrenMenuList = [];
           obj.children.forEach((childrenObj: any) => {
             if (this.getAvailableFunctions(childrenObj.functions).AT_LEAST_ONE) {
-            // if (true) {
+              // if (true) {
               childrenMenuList.push(childrenObj);
             }
           });
@@ -56,7 +64,7 @@ export class GlobalService {
           }
         } else {
           if (this.getAvailableFunctions(obj.functions).AT_LEAST_ONE) {
-          // if (true) {
+            // if (true) {
             menuList.push(obj);
           }
         }

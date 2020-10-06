@@ -12,6 +12,12 @@ export class ApiServiceConfig {
     ROUTE_PATH : '/masterData'
   };
 
+  public static SHOP_API_SERVICE = {
+    NAME: 'Shop-Management-Services',
+    KEY : 'GBL_SEV',
+    ROUTE_PATH: '/shop'
+  };
+
 
   public static BRANCH_API_SERVICE = {
     NAME : 'Branch Management Service',
@@ -24,12 +30,6 @@ export class ApiServiceConfig {
     NAME : 'Master data mgt Service',
     KEY : 'GBL_SEV',
     ROUTE_PATH : '/master_data_management_service'
-  };
-
-  public static SHOP_API_SERVICE = {
-    NAME: 'Shop-Management-Services',
-    KEY : 'GBL_SEV',
-    ROUTE_PATH: '/shop_service'
   };
 
   public static IMG_API_SERVICE = {

@@ -1,62 +1,53 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {BsModalRef} from 'ngx-bootstrap';
 import {Subject} from 'rxjs';
+import {BsModalRef} from 'ngx-bootstrap';
+import {AdminService, MasterDataService, ShopService} from '../../../services';
 import {NgForm} from '@angular/forms';
-import {AdminService, MasterDataService} from '../../../services';
 
 @Component({
-  selector: 'app-admin-view',
-  templateUrl: './admin-view.component.html',
-  styleUrls: ['./admin-view.component.css']
+  selector: 'app-shop-view',
+  templateUrl: './shop-view.component.html',
+  styleUrls: ['./shop-view.component.css']
 })
-export class AdminViewComponent implements OnInit, AfterViewInit {
+export class ShopViewComponent implements OnInit, AfterViewInit {
 
   public onClose: Subject<boolean>;
   public action: string;
   public data: any = {};
-  public admin: any = {};
-  public shopList: any[] = [];
+  public shop: any = {};
+  public shopAdmin: any = {};
 
   constructor(
     public bsModalRef: BsModalRef,
     private masterDataService: MasterDataService,
-    private adminService: AdminService,
+    private shopService: ShopService,
   ) {
     this.onClose = new Subject();
   }
 
   ngOnInit() {
-    this.getShopList();
   }
 
   ngAfterViewInit() {
     setTimeout(() => {
       if (this.action === 'edit' || this.action === 'view') {
-        this.admin = this.data;
+        this.shop = this.data;
       }
     }, 100);
   }
 
-  getShopList() {
-    this.masterDataService.getAllShopList().then((res: any) => {
-      if (res && res.status === 1) {
-        this.shopList = res.data;
-      }
-    });
-  }
-
-  createAdmin(req: any) {
-    this.adminService.createNewAdmin(req).then((res: any) => {
+  createShop(req: any) {
+    this.shopService.createNewShop(req).then((res: any) => {
       if (res && res.status === 1) {
         this.onCloseModal(res.data);
       }
     });
   }
 
-  updateAdmin(req: any) {
-    this.adminService.updateAdmin(req).then((res: any) => {
+  updateShop(req: any) {
+    this.shopService.updateShop(req).then((res: any) => {
       if (res && res.status === 1) {
-        this.onCloseModal(this.admin);
+        this.onCloseModal(this.shop);
       }
     });
   }
@@ -64,9 +55,10 @@ export class AdminViewComponent implements OnInit, AfterViewInit {
   onSubmit(form: NgForm) {
     if (form.valid) {
       if (this.action === 'add') {
-        this.createAdmin(form.value);
+        this.shop.admin = this.shopAdmin;
+        this.createShop(this.shop);
       } else if (this.action === 'edit') {
-        this.updateAdmin(this.admin);
+        this.updateShop(this.shop);
       }
     }
   }

@@ -1,0 +1,290 @@
+<div bsModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Shop</h4>
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="onCloseModal();">
+      <span aria-hidden="true" style="outline: none">&times;</span>
+    </button>
+
+  </div>
+  <div class="modal-body">
+    <ng-template [ngIf]="action !== 'view'" [ngIfElse]="viewTemplate">
+      <form role="form" #f="ngForm" (submit)="onSubmit(f)">
+
+        <div class="row">
+          <div class="col-lg-12">
+
+            <div class="card" *ngIf="action==='add'">
+              <div class="card-header">
+                <label>Shop Admin Details</label>
+              </div>
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>User Name<span class="required-field"> *</span></label>
+                      <input type="text" class="form-control form-control-sm" [disabled]="action !== 'add'"
+                             placeholder=" " required [(ngModel)]="shopAdmin.userName" name="userName"
+                             #userName="ngModel">
+                      <div *ngIf="userName.invalid && (f.submitted || userName.dirty || userName.touched)"
+                           class="required-alert alert alert-danger">
+                    <span *ngIf="userName?.errors.required">
+                      This field is required.
+                    </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Password<span class="required-field"> *</span></label>
+                      <input type="password" class="form-control form-control-sm"
+                             placeholder=" " required [(ngModel)]="shopAdmin.password" name="password"
+                             #password="ngModel">
+                      <div *ngIf="password.invalid && (f.submitted || password.dirty || password.touched)"
+                           class="required-alert alert alert-danger">
+                    <span *ngIf="password?.errors.required">
+                      This field is required.
+                    </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Full Name<span class="required-field"> *</span></label>
+                      <input type="text" class="form-control form-control-sm"
+                             placeholder=" " required [(ngModel)]="shopAdmin.fullName" name="fullName"
+                             #fullName="ngModel">
+                      <div *ngIf="fullName.invalid && (f.submitted || fullName.dirty || fullName.touched)"
+                           class="required-alert alert alert-danger">
+                    <span *ngIf="fullName?.errors.required">
+                      This field is required.
+                    </span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <label>Shop Details</label>
+              </div>
+              <div class="card-body">
+
+                <div class="row">
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Shop Name<span class="required-field"> *</span></label>
+                      <input type="text" class="form-control form-control-sm" [disabled]="action !== 'add'"
+                             placeholder=" " required [(ngModel)]="shop.name" name="name" #name="ngModel">
+                      <div *ngIf="name.invalid && (f.submitted || name.dirty || name.touched)"
+                           class="required-alert alert alert-danger">
+                    <span *ngIf="name?.errors.required">
+                      This field is required.
+                    </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Email<span class="required-field"> *</span></label>
+                      <input type="text" class="form-control form-control-sm"
+                             placeholder=" " required [(ngModel)]="shop.email" name="email" #email="ngModel">
+                      <div *ngIf="email.invalid && (f.submitted || email.dirty || email.touched)"
+                           class="required-alert alert alert-danger">
+                    <span *ngIf="email?.errors.required">
+                      This field is required.
+                    </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Description<span class="required-field"> *</span></label>
+                      <textarea type="text" class="form-control form-control-sm"
+                                placeholder=" " required [(ngModel)]="shop.description" name="description"
+                                #description="ngModel"></textarea>
+                      <div *ngIf="description.invalid && (f.submitted || description.dirty || description.touched)"
+                           class="required-alert alert alert-danger">
+                    <span *ngIf="description?.errors.required">
+                      This field is required.
+                    </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Telephone</label>
+                      <input type="text" class="form-control form-control-sm"
+                             placeholder=" " [(ngModel)]="shop.telephone" name="telephone" #telephone="ngModel">
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Address</label>
+                      <input type="text" class="form-control form-control-sm"
+                             placeholder=" " [(ngModel)]="shop.address" name="address" #address="ngModel">
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>City</label>
+                      <input type="text" class="form-control form-control-sm"
+                             placeholder=" " [(ngModel)]="shop.city" name="city" #city="ngModel">
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row" style="padding-top: 5px;">
+          <div class="col-md-12 text-right">
+            <button type="submit"
+                    class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit
+            </button>&nbsp;
+            <!--          <button type="button" class="btn btn-sm btn-danger" (click)="onClickReset(f);" [disabled]="action === 'edit'"><i class="fa fa-ban"></i>-->
+            <!--            Reset-->
+            <!--          </button>-->
+          </div>
+        </div>
+
+      </form>
+    </ng-template>
+
+    <ng-template #viewTemplate>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <!--              <div  class="card-header">-->
+            <!--                <label>Title</label>-->
+            <!--              </div>-->
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col-md-4 view-label-style"><label>Shop Name</label></div>
+                <div class="col-md-8">
+                  <span> {{shop.name || 'N/A'}}</span>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-md-4 view-label-style"><label>Email</label></div>
+                <div class="col-md-8">
+                  <span> {{shop.email || 'N/A'}}</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 view-label-style"><label>Description</label></div>
+                <div class="col-md-8">
+                  <span> {{shop.description || 'N/A'}}</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 view-label-style"><label>Telephone</label></div>
+                <div class="col-md-8">
+                  <span> {{shop.telephone || 'N/A'}}</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 view-label-style"><label>Address</label></div>
+                <div class="col-md-8">
+                  <span> {{shop.address || 'N/A'}}</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 view-label-style"><label>City</label></div>
+                <div class="col-md-8">
+                  <span> {{shop.city || 'N/A'}}</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 view-label-style"><label>Image</label></div>
+                <div class="col-md-8">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-12 col-md-4">
+                          <img [src]="'https://s3-ap-southeast-1.amazonaws.com/pankadu-qa/1/5462411357228680.jpg'"
+                               class="rounded" alt="image" style="width: 100%;height: 100%">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!--                <div class="row">-->
+              <!--                  <div class="col-md-4 view-label-style"><label>Label</label></div>-->
+              <!--                  <div class="col-md-8">-->
+              <!--                    <span> : {{1.232 | number:'1.2-2'}}</span>-->
+              <!--                  </div>-->
+              <!--                </div>-->
+
+              <!--                <div class="row">-->
+              <!--                  <div class="col-md-4 view-label-style"><label>Label</label></div>-->
+              <!--                  <div class="col-md-8">-->
+              <!--                    <pre>pre</pre>-->
+              <!--                  </div>-->
+              <!--                </div>-->
+
+              <!--                <div class="row">-->
+              <!--                  <div class="col-md-4 view-label-style"><label>Label</label></div>-->
+              <!--                  <div class="col-md-8">-->
+              <!--                    <div class="row">-->
+              <!--                      <div class="col-sm-12">-->
+              <!--                        <p>Para</p>-->
+              <!--                      </div>-->
+              <!--                    </div>-->
+              <!--                  </div>-->
+              <!--                </div>-->
+
+              <!--                <div class="row">-->
+              <!--                  <div class="col-md-4 view-label-style"><label>Label</label></div>-->
+              <!--                  <div class="col-md-8">-->
+              <!--                    <div class="card">-->
+              <!--                      <div class="card-body">-->
+              <!--                        <div class="row">-->
+              <!--                          <div class="col-sm-12">-->
+              <!--                            <img [src]="'https://s3-ap-southeast-1.amazonaws.com/pankadu-qa/1/5462411357228680.jpg'" class="rounded" alt="image" style="width: 100%;height: 100%">-->
+              <!--                          </div>-->
+              <!--                        </div>-->
+              <!--                      </div>-->
+              <!--                    </div>-->
+              <!--                  </div>-->
+              <!--                </div>-->
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </ng-template>
+
+  </div>
+</div>
