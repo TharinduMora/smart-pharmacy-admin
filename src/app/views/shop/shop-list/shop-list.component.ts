@@ -17,19 +17,19 @@ export class ShopListComponent implements OnInit {
   actionRestrictionConfig = {
     VIEW: {
       isEnable: false,
-      functions: ['VIEW_ADMIN_DETAILS']
+      functions: ['VIEW_SHOP_DETAILS']
     },
     ADD: {
       isEnable: false,
-      functions: ['CREATE_ADMIN']
+      functions: ['CREATE_SHOP']
     },
     EDIT: {
       isEnable: false,
-      functions: ['UPDATE_ADMIN']
+      functions: ['UPDATE_SHOP']
     },
     UPDATE_STATUS: {
       isEnable: false,
-      functions: ['UPDATE_ADMIN_STATUS']
+      functions: ['UPDATE_SHOP_STATUS']
     }
   };
 

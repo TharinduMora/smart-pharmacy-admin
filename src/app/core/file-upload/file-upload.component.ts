@@ -21,6 +21,7 @@ export class FileUploadComponent implements OnInit {
 
   ngOnInit() {
     this.uploadedUrl = this.config.image;
+    console.log(this.uploadedUrl);
   }
 
   onChooseFile(files: FileList) {
@@ -29,13 +30,14 @@ export class FileUploadComponent implements OnInit {
       'image': fileToUpload
     };
     this.httpService.httpPostFileUpload(ApiServiceConfig.IMG_API_SERVICE, '', req, null).then((response: any) => {
-      this.uploadedUrl = this.config.imgUrl + response.fileName;
-      if (response) {
+      if (response && response.status === 1) {
+        this.uploadedUrl = this.config.imgUrl + '/' + response.url;
+        console.log(this.uploadedUrl);
         this.uploadProgress = 100;
         setTimeout(() => {
           this.uploadProgress = 0;
         }, 1000);
-        this.onFileUploadEvent.emit({type: 'uploaded', data: response});
+        this.onFileUploadEvent.emit({type: 'uploaded', data: response.url});
       } else {
         this.onFileUploadEvent.emit({type: 'error', data: null});
       }

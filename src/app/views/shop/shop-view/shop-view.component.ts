@@ -1,8 +1,9 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
 import {BsModalRef} from 'ngx-bootstrap';
-import {AdminService, MasterDataService, ShopService} from '../../../services';
+import {MasterDataService, ShopService} from '../../../services';
 import {NgForm} from '@angular/forms';
+import {GlobalVariable} from '../../../core/com-classes';
 
 @Component({
   selector: 'app-shop-view',
@@ -21,6 +22,7 @@ export class ShopViewComponent implements OnInit, AfterViewInit {
     public bsModalRef: BsModalRef,
     private masterDataService: MasterDataService,
     private shopService: ShopService,
+    private globalVariable: GlobalVariable
   ) {
     this.onClose = new Subject();
   }
@@ -42,6 +44,11 @@ export class ShopViewComponent implements OnInit, AfterViewInit {
         this.onCloseModal(res.data);
       }
     });
+  }
+
+  asd(event) {
+    this.shop.image = event.data;
+    console.log(event);
   }
 
   updateShop(req: any) {
