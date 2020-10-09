@@ -1,0 +1,8 @@
+<!--<ng-template *ngIf="isEnable">-->
+<!--  <button class="float-right btn btn-success top-bar-btn" [ngStyle]="{background:currentStatus.COLOR}" (click)="onClickStatusBtn()" >{{currentStatus.NAME}}</button>-->
+<!--</ng-template>-->
+
+<button  *ngIf="isEnable" class="float-right btn btn-success top-bar-btn" [ngStyle]="{background:currentStatus.COLOR}" (click)="onClickStatusBtn()" >{{currentStatus.NAME}}</button>
+
+
+

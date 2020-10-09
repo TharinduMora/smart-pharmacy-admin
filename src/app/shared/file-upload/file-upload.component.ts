@@ -1,7 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
-
-import {HttpService} from '../services';
-import {ApiServiceConfig} from '../config';
+import {HttpService} from '../../core/services';
+import {ApiServiceConfig} from '../../core/config';
 
 @Component({
   selector: 'app-file-upload',

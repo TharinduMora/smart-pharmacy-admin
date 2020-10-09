@@ -4,12 +4,16 @@
       <div class="card">
         <div class="card-header">
           <i class="fa fa-align-justify"></i> Shop List
-          <button class="float-right btn btn-primary" *ngIf="actionRestrictionConfig.ADD.isEnable" (click)="onGridAction('add',null)" >Add New</button>
+          <button class="float-right btn btn-primary top-bar-btn" *ngIf="actionRestrictionConfig.ADD.isEnable" (click)="onGridAction('add',null)" >Add New</button>
+          <app-status-update-btn [isEnable]="actionRestrictionConfig.UPDATE_STATUS.isEnable" [statusString]="'DELETED'" (onClickStatus)="onGridAction($event.action,$event.data)"></app-status-update-btn>
+          <app-status-update-btn [isEnable]="actionRestrictionConfig.UPDATE_STATUS.isEnable" [statusString]="'HOLD'" (onClickStatus)="onGridAction($event.action,$event.data)"></app-status-update-btn>
+          <app-status-update-btn [isEnable]="actionRestrictionConfig.UPDATE_STATUS.isEnable" [statusString]="'APPROVED'" (onClickStatus)="onGridAction($event.action,$event.data)"></app-status-update-btn>
         </div>
         <div class="card-body">
           <table class="table">
             <thead>
             <tr>
+              <th><input type="checkbox" disabled></th>
               <th>Name</th>
               <th>Email</th>
               <th>Address</th>
@@ -20,6 +24,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let record of gridRecordList; let i = index">
+              <th><input type="checkbox" [(ngModel)]="record.isChecked"></th>
               <td>{{record.name || 'N/A'}}</td>
               <td>{{record.email || 'N/A'}}</td>
               <td>{{record.address || 'N/A'}}</td>

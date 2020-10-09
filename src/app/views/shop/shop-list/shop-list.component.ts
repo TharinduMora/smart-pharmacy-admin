@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {AdminService, ShopService} from '../../../services';
-import {GlobalService} from '../../../core/services';
+import {GlobalService, ToastService} from '../../../core/services';
 import {AdminViewComponent} from '../../admin/admin-view/admin-view.component';
 import {ShopViewComponent} from '../shop-view/shop-view.component';
+import {StaticConfig} from '../../../core/config';
 
 @Component({
   selector: 'app-shop-list',
@@ -13,6 +14,7 @@ import {ShopViewComponent} from '../shop-view/shop-view.component';
 export class ShopListComponent implements OnInit {
 
   bsModalRef: BsModalRef;
+  staticConfig = StaticConfig;
 
   actionRestrictionConfig = {
     VIEW: {
@@ -35,7 +37,7 @@ export class ShopListComponent implements OnInit {
 
   pagination = {
     pageSize: 1,
-    itemsPerPage: 3,
+    itemsPerPage: 10,
     maxPageNumberCount: 5,
     recordCount: 0
   };
@@ -43,9 +45,10 @@ export class ShopListComponent implements OnInit {
   sevReq: any;
 
   gridRecordList: any[] = [];
+  selectedRecordList: any[] = [];
 
   constructor(private shopSev: ShopService, public modalService: BsModalService,
-              private gSev: GlobalService) {
+              private gSev: GlobalService, private toast: ToastService) {
     this.actionRestrictionConfig = this.gSev.getActionRestrictionConfigByConfigObj(this.actionRestrictionConfig);
   }
 
@@ -75,9 +78,35 @@ export class ShopListComponent implements OnInit {
       case 'view':
         this.openShopForm(action, data);
         break;
+      case 'status-update':
+        this.updateShopStatus(data);
+        break;
       default:
         break;
     }
+  }
+
+  updateShopStatus(status) {
+    this.gridRecordList.forEach((item: any) => {
+      if (item.isChecked) {
+        const req = {
+          primaryId: item.id,
+          status: status
+        };
+        this.shopSev.updateShopStatus(req).then((res: any) => {
+          if (res && res.status === 1) {
+            item.status = status;
+            item.isChecked = false;
+            this.toast.showSuccess( item.name + '" Status Successfully Updated');
+          } else {
+            this.toast.showError( item.name + '" Status Updating failed.');
+          }
+        }).catch(() => {
+          this.toast.showError(item.name + '" Status Updating failed.');
+        });
+      }
+    });
+
   }
 
   openShopForm(action, data) {

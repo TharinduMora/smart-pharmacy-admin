@@ -9,7 +9,7 @@ import {PipeModule} from '../../core/pipe';
 import {ModalModule, PaginationModule} from 'ngx-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {FileUploadModule} from '../../core/file-upload';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -21,7 +21,7 @@ import {FileUploadModule} from '../../core/file-upload';
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
     NgSelectModule,
-    FileUploadModule
+    SharedModule
   ],
   declarations: [AdminListComponent, AdminViewComponent],
   entryComponents: [AdminViewComponent]

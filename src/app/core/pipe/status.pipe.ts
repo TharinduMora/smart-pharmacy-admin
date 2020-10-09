@@ -6,11 +6,12 @@ import {StaticConfig} from '../config';
 })
 export class StatusPipe implements PipeTransform {
   transform(statusId: number): String {
+    let statusString = StaticConfig.STATUS_LIST.CREATED.NAME.toUpperCase();
     Object.keys(StaticConfig.STATUS_LIST).forEach((KEY) => {
       if (StaticConfig.STATUS_LIST[KEY].ID === statusId) {
-        return StaticConfig.STATUS_LIST[KEY].NAME.toUpperCase();
+        statusString = StaticConfig.STATUS_LIST[KEY].NAME.toUpperCase();
       }
     });
-    return StaticConfig.STATUS_LIST.CREATED.NAME.toUpperCase();
+    return statusString;
   }
 }
