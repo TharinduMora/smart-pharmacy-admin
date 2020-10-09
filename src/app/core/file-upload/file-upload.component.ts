@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
 
 import {HttpService} from '../services';
 import {ApiServiceConfig} from '../config';
@@ -8,7 +8,7 @@ import {ApiServiceConfig} from '../config';
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss']
 })
-export class FileUploadComponent implements OnInit {
+export class FileUploadComponent implements OnChanges, OnInit {
 
   @Input() config: any;
   @Output() onFileUploadEvent: EventEmitter<any> = new EventEmitter();
@@ -19,9 +19,13 @@ export class FileUploadComponent implements OnInit {
   constructor(private httpService: HttpService) {
   }
 
-  ngOnInit() {
+  ngOnChanges(changes: SimpleChanges): void {
     this.uploadedUrl = this.config.image;
-    console.log(this.uploadedUrl);
+  }
+
+  ngOnInit() {
+    // this.uploadedUrl = this.config.image;
+    // console.log(this.uploadedUrl);
   }
 
   onChooseFile(files: FileList) {
@@ -31,7 +35,7 @@ export class FileUploadComponent implements OnInit {
     };
     this.httpService.httpPostFileUpload(ApiServiceConfig.IMG_API_SERVICE, '', req, null).then((response: any) => {
       if (response && response.status === 1) {
-        this.uploadedUrl = this.config.imgUrl + '/' + response.url;
+        this.uploadedUrl = this.config.imgUrl + response.url;
         console.log(this.uploadedUrl);
         this.uploadProgress = 100;
         setTimeout(() => {

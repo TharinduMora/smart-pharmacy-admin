@@ -17,6 +17,7 @@ export class ShopViewComponent implements OnInit, AfterViewInit {
   public data: any = {};
   public shop: any = {};
   public shopAdmin: any = {};
+  public imageConfig: any = {};
 
   constructor(
     public bsModalRef: BsModalRef,
@@ -28,14 +29,22 @@ export class ShopViewComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.initImageConfig();
+  }
+
+  initImageConfig() {
+    this.imageConfig.image = null;
+    this.imageConfig.imgUrl = this.globalVariable.appConfig.IMAGE_URL;
+    // console.log(this.imageConfig);
   }
 
   ngAfterViewInit() {
     setTimeout(() => {
       if (this.action === 'edit' || this.action === 'view') {
         this.shop = this.data;
+        this.imageConfig.image = this.globalVariable.appConfig.IMAGE_URL + this.shop.image;
       }
-    }, 100);
+    }, 2000);
   }
 
   createShop(req: any) {
@@ -48,7 +57,7 @@ export class ShopViewComponent implements OnInit, AfterViewInit {
 
   asd(event) {
     this.shop.image = event.data;
-    console.log(event);
+    console.log(this.shop.image);
   }
 
   updateShop(req: any) {
