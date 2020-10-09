@@ -40,20 +40,14 @@ import {
   AdminService,
   MasterDataService,
   ShopService,
-  BranchService,
-  MasterDataManagementService,
   RolesService,
-  ManufacturerService
 } from './services';
 
 const API_SERVICES = [
   AdminService,
   MasterDataService,
   ShopService,
-  BranchService,
-  MasterDataManagementService,
-  RolesService,
-  ManufacturerService
+  RolesService
 ];
 
 export function HttpLoaderFactory(http: HttpClient) {

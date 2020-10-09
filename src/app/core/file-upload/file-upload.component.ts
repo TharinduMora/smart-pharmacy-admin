@@ -8,24 +8,17 @@ import {ApiServiceConfig} from '../config';
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss']
 })
-export class FileUploadComponent implements OnChanges, OnInit {
+export class FileUploadComponent implements OnInit {
 
   @Input() config: any;
   @Output() onFileUploadEvent: EventEmitter<any> = new EventEmitter();
 
-  public uploadedUrl: any = null;
   public uploadProgress: any = 0;
 
   constructor(private httpService: HttpService) {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.uploadedUrl = this.config.image;
-  }
-
   ngOnInit() {
-    // this.uploadedUrl = this.config.image;
-    // console.log(this.uploadedUrl);
   }
 
   onChooseFile(files: FileList) {
@@ -35,8 +28,7 @@ export class FileUploadComponent implements OnChanges, OnInit {
     };
     this.httpService.httpPostFileUpload(ApiServiceConfig.IMG_API_SERVICE, '', req, null).then((response: any) => {
       if (response && response.status === 1) {
-        this.uploadedUrl = this.config.imgUrl + response.url;
-        console.log(this.uploadedUrl);
+        this.config.image = this.config.imgUrl + response.url;
         this.uploadProgress = 100;
         setTimeout(() => {
           this.uploadProgress = 0;
@@ -51,7 +43,7 @@ export class FileUploadComponent implements OnChanges, OnInit {
   }
 
   onDeleteImg() {
-    this.uploadedUrl = null;
+    this.config.image = null;
     this.onFileUploadEvent.emit({type: 'deleted', data: null});
   }
 

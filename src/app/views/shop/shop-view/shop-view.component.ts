@@ -4,6 +4,7 @@ import {BsModalRef} from 'ngx-bootstrap';
 import {MasterDataService, ShopService} from '../../../services';
 import {NgForm} from '@angular/forms';
 import {GlobalVariable} from '../../../core/com-classes';
+import {ToastService} from '../../../core/services';
 
 @Component({
   selector: 'app-shop-view',
@@ -17,34 +18,37 @@ export class ShopViewComponent implements OnInit, AfterViewInit {
   public data: any = {};
   public shop: any = {};
   public shopAdmin: any = {};
-  public imageConfig: any = {};
+  public imageConfig: any = {
+    image: null,
+    imgUrl: this.globalVariable.appConfig.IMAGE_URL,
+    width: 100,
+    height: 100,
+  };
 
   constructor(
     public bsModalRef: BsModalRef,
     private masterDataService: MasterDataService,
     private shopService: ShopService,
-    private globalVariable: GlobalVariable
+    public globalVariable: GlobalVariable,
+    private toastService: ToastService
   ) {
     this.onClose = new Subject();
   }
 
   ngOnInit() {
-    this.initImageConfig();
   }
 
-  initImageConfig() {
-    this.imageConfig.image = null;
-    this.imageConfig.imgUrl = this.globalVariable.appConfig.IMAGE_URL;
-    // console.log(this.imageConfig);
+  setImageToConfig(imageUrl) {
+    this.imageConfig.image = this.globalVariable.appConfig.IMAGE_URL + imageUrl;
   }
 
   ngAfterViewInit() {
     setTimeout(() => {
       if (this.action === 'edit' || this.action === 'view') {
         this.shop = this.data;
-        this.imageConfig.image = this.globalVariable.appConfig.IMAGE_URL + this.shop.image;
+        this.setImageToConfig(this.shop.image);
       }
-    }, 2000);
+    }, 100);
   }
 
   createShop(req: any) {
@@ -55,16 +59,20 @@ export class ShopViewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  asd(event) {
+  onFileUploadEvent(event) {
     this.shop.image = event.data;
-    console.log(this.shop.image);
   }
 
   updateShop(req: any) {
     this.shopService.updateShop(req).then((res: any) => {
       if (res && res.status === 1) {
         this.onCloseModal(this.shop);
+        this.toastService.showSuccess('Successfully Updated!');
+      } else {
+        this.toastService.showSuccess('Failed to update!');
       }
+    }).catch(() => {
+      this.toastService.showSuccess('Failed to update!');
     });
   }
 

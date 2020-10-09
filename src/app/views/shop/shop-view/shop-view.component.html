@@ -121,10 +121,10 @@
                     </div>
                   </div>
 
-                  <div class="row">
-                    <div class="col-md-4 view-label-style"><label>Image</label></div>
-                    <div class="col-md-8">
-                      <app-file-upload (onFileUploadEvent)="asd($event)"
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Image</label>
+                      <app-file-upload (onFileUploadEvent)="onFileUploadEvent($event)"
                                        [config]="imageConfig"></app-file-upload>
                     </div>
                   </div>
@@ -183,9 +183,6 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="card">
-            <!--              <div  class="card-header">-->
-            <!--                <label>Title</label>-->
-            <!--              </div>-->
             <div class="card-body">
 
               <div class="row">
@@ -237,8 +234,8 @@
                   <div class="card">
                     <div class="card-body">
                       <div class="row">
-                        <div class="col-sm-12 col-md-4">
-                          <img [src]="'https://s3-ap-southeast-1.amazonaws.com/pankadu-qa/1/5462411357228680.jpg'"
+                        <div class="col-sm-12 col-md-8">
+                          <img [src]="globalVariable.appConfig.IMAGE_URL + shop.image"
                                class="rounded" alt="image" style="width: 100%;height: 100%">
                         </div>
                       </div>
