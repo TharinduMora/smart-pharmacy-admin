@@ -5,6 +5,7 @@ import {GlobalService, ToastService} from '../../../core/services';
 import {AdminViewComponent} from '../../admin/admin-view/admin-view.component';
 import {ShopViewComponent} from '../shop-view/shop-view.component';
 import {StaticConfig} from '../../../core/config';
+import {setOffsetToUTC} from 'ngx-bootstrap/chronos/units/offset';
 
 @Component({
   selector: 'app-shop-list',
@@ -94,12 +95,12 @@ export class ShopListComponent implements OnInit {
           status: status
         };
         this.shopSev.updateShopStatus(req).then((res: any) => {
-          if (res && res.status === 1) {
+          if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
             item.status = status;
             item.isChecked = false;
-            this.toast.showSuccess( item.name + '" Status Successfully Updated');
+            this.toast.showSuccess(item.name + '" Status Successfully Updated');
           } else {
-            this.toast.showError( item.name + '" Status Updating failed.');
+            this.toast.showError(item.name + '" Status Updating failed.');
           }
         }).catch(() => {
           this.toast.showError(item.name + '" Status Updating failed.');
@@ -157,10 +158,14 @@ export class ShopListComponent implements OnInit {
   getGridRecordList() {
     this.gridRecordList = [];
     this.shopSev.shopFindByCriteria(this.sevReq).then((res: any) => {
-      this.gridRecordList = res.data;
-      if (this.pagination.recordCount === 0) {
-        this.pagination.recordCount = res.recordCount;
+      if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
+        this.gridRecordList = res.data;
+        if (this.pagination.recordCount === 0) {
+          this.pagination.recordCount = res.recordCount;
+        }
       }
+    }).catch((e) => {
+      console.log(e);
     });
 
   }

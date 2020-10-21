@@ -5,6 +5,7 @@ import {MasterDataService, ShopService} from '../../../services';
 import {NgForm} from '@angular/forms';
 import {GlobalVariable} from '../../../core/com-classes';
 import {ToastService} from '../../../core/services';
+import {StaticConfig} from '../../../core/config';
 
 @Component({
   selector: 'app-shop-view',
@@ -53,7 +54,7 @@ export class ShopViewComponent implements OnInit, AfterViewInit {
 
   createShop(req: any) {
     this.shopService.createNewShop(req).then((res: any) => {
-      if (res && res.status === 1) {
+      if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
         this.onCloseModal(res.data);
       }
     });
@@ -65,7 +66,7 @@ export class ShopViewComponent implements OnInit, AfterViewInit {
 
   updateShop(req: any) {
     this.shopService.updateShop(req).then((res: any) => {
-      if (res && res.status === 1) {
+      if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
         this.onCloseModal(this.shop);
         this.toastService.showSuccess('Successfully Updated!');
       } else {

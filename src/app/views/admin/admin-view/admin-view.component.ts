@@ -3,6 +3,7 @@ import {BsModalRef} from 'ngx-bootstrap';
 import {Subject} from 'rxjs';
 import {NgForm} from '@angular/forms';
 import {AdminService, MasterDataService} from '../../../services';
+import {StaticConfig} from '../../../core/config';
 
 @Component({
   selector: 'app-admin-view',
@@ -47,7 +48,7 @@ export class AdminViewComponent implements OnInit, AfterViewInit {
 
   createAdmin(req: any) {
     this.adminService.createNewAdmin(req).then((res: any) => {
-      if (res && res.status === 1) {
+      if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
         this.onCloseModal(res.data);
       }
     });
@@ -55,7 +56,7 @@ export class AdminViewComponent implements OnInit, AfterViewInit {
 
   updateAdmin(req: any) {
     this.adminService.updateAdmin(req).then((res: any) => {
-      if (res && res.status === 1) {
+      if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
         this.onCloseModal(this.admin);
       }
     });

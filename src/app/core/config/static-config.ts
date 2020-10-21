@@ -2,6 +2,11 @@ export class StaticConfig {
 
   public static APP_NAME = 'Admin';
 
+  public static RESPONSE_STATUS = {
+    SUCCESS: 1,
+    FAILED: -1
+  };
+
   public static SHOP_TYPES = [
     {
       'id': 1,
@@ -44,8 +49,8 @@ export class StaticConfig {
   public static STATUS_LIST = {
     'CREATED': {
       ID: 0,
-      NAME: 'Create',
-      COLOR: '#000000'
+      NAME: 'Created',
+      COLOR: '#3e3e3e'
     },
     'PENDING': {
       ID: 1,
