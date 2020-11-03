@@ -3,7 +3,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-align-justify"></i> Shop List
+          <i class="fa fa-align-justify"></i> Product List
           <button class="float-right btn btn-primary top-bar-btn" *ngIf="actionRestrictionConfig.ADD.isEnable"
                   (click)="onGridAction('add',null)">Add New
           </button>
@@ -20,9 +20,8 @@
             <tr>
               <th><input type="checkbox" disabled></th>
               <th>Name</th>
-              <th>Email</th>
-              <th>Address</th>
-              <th>City</th>
+              <th>Description</th>
+              <th>Price</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -31,9 +30,8 @@
             <tr *ngFor="let record of gridRecordList; let i = index">
               <th><input type="checkbox" [(ngModel)]="record.isChecked"></th>
               <td>{{record.name || 'N/A'}}</td>
-              <td>{{record.email || 'N/A'}}</td>
-              <td>{{record.address || 'N/A'}}</td>
-              <td>{{record.city || 'N/A'}}</td>
+              <td>{{record.description || 'N/A'}}</td>
+              <td>{{record.price || 'N/A'}}</td>
               <td [ngStyle]="{color:record.status | statusColorPipe}">{{record.status | statusPipe}}</td>
               <td>
                 <button class="btn btn-success" *ngIf="actionRestrictionConfig.VIEW.isEnable"

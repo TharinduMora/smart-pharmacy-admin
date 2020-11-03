@@ -23,20 +23,17 @@ export class ProductService {
       }));
   }
 
-  public createNewAdmin(req: any) {
+  public createNewProduct(req: any) {
     const formattedReq = {
-      roleId: req.roleId,
       shopId: req.shopId,
-      userName: req.userName,
-      password: req.password,
-      fullName: req.fullName,
-      email: req.email,
-      telephone: req.telephone,
-      address: req.address,
-      city: req.city
+      name: req.name,
+      description: req.description,
+      stockAvailable: req.stockAvailable || true,
+      price: req.price,
+      image: req.image || ''
     };
     return new Promise((resolve, reject) =>
-      this.httpService.httpPost(ApiServiceConfig.ADMIN_API_SERVICE, '', formattedReq, {})
+      this.httpService.httpPost(ApiServiceConfig.PRODUCT_API_SERVICE, '', formattedReq, {})
         .then((data: any) => {
           if (data) {
             resolve(data);

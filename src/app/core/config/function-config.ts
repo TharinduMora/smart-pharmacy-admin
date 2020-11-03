@@ -16,6 +16,8 @@ export class FunctionConfig {
     FIND_PRODUCT_BY_CRITERIA: {ID: 30, NAME: 'Product -> Find By Criteria', DESCRIPTION: 'Product -> Find By Criteria'},
     VIEW_PRODUCT_DETAILS: {ID: 31, NAME: 'Product -> View Details', DESCRIPTION: 'Product -> View Details'},
     CREATE_PRODUCT: {ID: 32, NAME: 'Product -> Create', DESCRIPTION: 'Product -> Create'},
+    UPDATE_PRODUCT: {ID: 33, NAME: 'Product -> Update', DESCRIPTION: 'Product -> Update'},
+    UPDATE_PRODUCT_STATUS: {ID: 34, NAME: 'Product -> Update Status', DESCRIPTION: 'Product -> Update Status'},
 
   };
 }

@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {StaticConfig} from '../../../core/config';
-import {ShopService} from '../../../services';
 import {GlobalService, ToastService} from '../../../core/services';
-import {ShopViewComponent} from '../../shop/shop-view/shop-view.component';
-import {ProductService} from '../../../services/product.service';
+import {ProductService} from '../../../services';
 import {GlobalVariable} from '../../../core/com-classes';
+import {ProductViewComponent} from '../product-view/product-view.component';
 
 @Component({
   selector: 'app-product-list',
@@ -20,19 +19,19 @@ export class ProductListComponent implements OnInit {
   actionRestrictionConfig = {
     VIEW: {
       isEnable: false,
-      functions: ['VIEW_SHOP_DETAILS']
+      functions: ['VIEW_PRODUCT_DETAILS']
     },
     ADD: {
       isEnable: false,
-      functions: ['CREATE_SHOP']
+      functions: ['CREATE_PRODUCT']
     },
     EDIT: {
       isEnable: false,
-      functions: ['UPDATE_SHOP']
+      functions: ['UPDATE_PRODUCT']
     },
     UPDATE_STATUS: {
       isEnable: false,
-      functions: ['UPDATE_SHOP_STATUS']
+      functions: ['UPDATE_PRODUCT_STATUS']
     }
   };
 
@@ -55,7 +54,7 @@ export class ProductListComponent implements OnInit {
 
   initSevReq() {
     this.sevReq = {
-      'shopId':this.gVariable.authentication.shopId,
+      'shopId': this.gVariable.authentication.shopId,
       'offset': 0,
       'limit': this.pagination.itemsPerPage,
       'searchKeys': [],
@@ -72,30 +71,30 @@ export class ProductListComponent implements OnInit {
   onGridAction(action, data) {
     switch (action) {
       case 'add':
-        this.openShopForm(action, data);
+        this.openProductForm(action, data);
         break;
       case 'edit':
-        this.openShopForm(action, data);
+        this.openProductForm(action, data);
         break;
       case 'view':
-        this.openShopForm(action, data);
+        this.openProductForm(action, data);
         break;
       case 'status-update':
-        this.updateShopStatus(data);
+        this.updateProductStatus(data);
         break;
       default:
         break;
     }
   }
 
-  updateShopStatus(status) {
+  updateProductStatus(status) {
     this.gridRecordList.forEach((item: any) => {
       if (item.isChecked) {
         const req = {
           primaryId: item.id,
           status: status
         };
-        // this.productSev.updateShopStatus(req).then((res: any) => {
+        // this.productSev.updateProductStatus(req).then((res: any) => {
         //   if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
         //     item.status = status;
         //     item.isChecked = false;
@@ -111,7 +110,7 @@ export class ProductListComponent implements OnInit {
 
   }
 
-  openShopForm(action, data) {
+  openProductForm(action, data) {
     const modelConfig: any = {
       class: 'modal-lg',
       animated: true,
@@ -121,7 +120,7 @@ export class ProductListComponent implements OnInit {
     };
 
     this.bsModalRef = null;
-    this.bsModalRef = this.modalService.show(ShopViewComponent, modelConfig);
+    this.bsModalRef = this.modalService.show(ProductViewComponent, modelConfig);
     this.bsModalRef.content.action = action;
     this.bsModalRef.content.data = data;
     this.bsModalRef.content.onClose.subscribe((response: any) => {
