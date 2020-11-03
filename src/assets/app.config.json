@@ -1,7 +1,7 @@
 {
   "VERSION": "v2.1.1",
   "API_URL": {
-    "PUBLIC" : "http://localhost:3000"
+    "PUBLIC" : "http://localhost:3010"
   },
-  "IMAGE_URL": "http://localhost:3000/"
+  "IMAGE_URL": "http://localhost:3010/"
 }
