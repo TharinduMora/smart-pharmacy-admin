@@ -32,6 +32,18 @@ export const navigation = [
         icon: 'fas fa-award'
       }]
   },
+  {
+    menu: true,
+    functions: ['FIND_PRODUCT_BY_CRITERIA'],
+    name: 'Product',
+    children: [
+      {
+        functions: ['FIND_PRODUCT_BY_CRITERIA'],
+        name: 'Product Management',
+        url: '/product',
+        icon: 'fas fa-award'
+      }]
+  },
   // {
   //   menu: true,
   //   entitlements: [],

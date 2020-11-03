@@ -1,37 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Md5} from 'ts-md5/dist/md5';
 
 import {ApiServiceConfig, GlobalVariable, HttpService} from '../core';
 
 @Injectable()
-export class AdminService {
+export class ProductService {
 
-  constructor(private httpService: HttpService, private gVariable: GlobalVariable) { }
-
-  public login(req) {
-    const formattedReq = {
-      'userName': req.loginName || null,
-      // 'password':  Md5.hashStr(req.password || '') || null
-      'password': req.password || ''
-    };
-
-    return new Promise((resolve, reject) =>
-      this.httpService.httpPut(ApiServiceConfig.ADMIN_API_SERVICE, '/login', formattedReq, {})
-        .then((data: any) => {
-          if (data) {
-            resolve(data);
-          } else {
-            reject('no content 204');
-          }
-        }).catch((error: any) => {
-        reject(error);
-      }));
+  constructor(private httpService: HttpService, private gVariable: GlobalVariable) {
   }
 
-  public adminFindByCriteria(req: any) {
+  public productFindByCriteria(req: any) {
     const formattedReq = req;
     return new Promise((resolve, reject) =>
-      this.httpService.httpPost(ApiServiceConfig.ADMIN_API_SERVICE, '/findByCriteria', formattedReq, {})
+      this.httpService.httpPost(ApiServiceConfig.PRODUCT_API_SERVICE, '/findByCriteria', formattedReq, {})
         .then((data: any) => {
           if (data) {
             resolve(data);

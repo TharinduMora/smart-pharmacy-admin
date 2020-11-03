@@ -6,6 +6,12 @@ export class ApiServiceConfig {
     ROUTE_PATH : '/admin'
   };
 
+  public static PRODUCT_API_SERVICE = {
+    NAME : 'Product Management Service',
+    KEY : 'GBL_SEV',
+    ROUTE_PATH : '/product'
+  };
+
   public static MASTER_DATA_API_SERVICE = {
     NAME : 'Master data Service',
     KEY : 'GBL_SEV',
