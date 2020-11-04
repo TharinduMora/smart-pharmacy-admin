@@ -64,8 +64,7 @@ export class ProductViewComponent implements OnInit, AfterViewInit {
   }
 
   updateProduct(req: any) {
-    // req.shopId = this.globalVariable.authentication.shopId;
-    req.shopId = 12;
+    req.shopId = this.globalVariable.authentication.shopId;
     this.productService.updateProduct(req).then((res: any) => {
       if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
         this.onCloseModal(this.product);
