@@ -45,22 +45,23 @@ export class ProductService {
       }));
   }
 
-  public updateAdmin(req: any) {
+  public updateProduct(req: any) {
     const formattedReq = {
       id: req.id,
-      fullName: req.fullName,
-      email: req.email,
-      telephone: req.telephone,
-      address: req.address,
-      city: req.city
+      shopId: req.shopId || this.gVariable.authentication.shopId,
+      name: req.name,
+      description: req.description,
+      image: req.image,
+      price: req.price,
+      stockAvailable: req.stockAvailable
     };
     return new Promise((resolve, reject) =>
-      this.httpService.httpPut(ApiServiceConfig.ADMIN_API_SERVICE, '', formattedReq, {})
+      this.httpService.httpPut(ApiServiceConfig.PRODUCT_API_SERVICE, '', formattedReq, {})
         .then((data: any) => {
           if (data) {
             resolve(data);
           } else {
-            resolve({'offset': 0, 'limit': 0, 'recordCount': 0, 'status': 0, 'errorCode': null, 'data': []});
+            reject();
           }
         }).catch((error: any) => {
         reject(error);

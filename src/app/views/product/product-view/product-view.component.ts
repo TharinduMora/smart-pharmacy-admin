@@ -18,7 +18,6 @@ export class ProductViewComponent implements OnInit, AfterViewInit {
   public action: string;
   public data: any = {};
   public product: any = {};
-  public shopAdmin: any = {};
   public imageConfig: any = {
     image: null,
     imgUrl: this.globalVariable.appConfig.IMAGE_URL,
@@ -64,18 +63,20 @@ export class ProductViewComponent implements OnInit, AfterViewInit {
     this.product.image = event.data;
   }
 
-  // updateProduct(req: any) {
-  //   this.productService.updateProduct(req).then((res: any) => {
-  //     if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
-  //       this.onCloseModal(this.product);
-  //       this.toastService.showSuccess('Successfully Updated!');
-  //     } else {
-  //       this.toastService.showSuccess('Failed to update!');
-  //     }
-  //   }).catch(() => {
-  //     this.toastService.showSuccess('Failed to update!');
-  //   });
-  // }
+  updateProduct(req: any) {
+    // req.shopId = this.globalVariable.authentication.shopId;
+    req.shopId = 12;
+    this.productService.updateProduct(req).then((res: any) => {
+      if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
+        this.onCloseModal(this.product);
+        this.toastService.showSuccess('Successfully Updated!');
+      } else {
+        this.toastService.showError('Failed to update!');
+      }
+    }).catch(() => {
+      this.toastService.showSuccess('Failed to update!');
+    });
+  }
 
   onSubmit(form: NgForm) {
     if (form.valid) {
@@ -83,7 +84,7 @@ export class ProductViewComponent implements OnInit, AfterViewInit {
         this.product.shopId = this.globalVariable.authentication.shopId;
         this.createProduct(this.product);
       } else if (this.action === 'edit') {
-        // this.updateProduct(this.product);
+        this.updateProduct(this.product);
       }
     }
   }
