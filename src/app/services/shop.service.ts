@@ -81,6 +81,7 @@ export class ShopService {
 
   public updateShopStatus(req: any) {
     const formattedReq = {
+      shopId: req.shopId || this.gVariable.authentication.shopId,
       primaryId: req.primaryId,
       status: req.status
     };

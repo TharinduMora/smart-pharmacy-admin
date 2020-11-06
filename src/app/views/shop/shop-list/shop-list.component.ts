@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
-import {AdminService, ShopService} from '../../../services';
+import {ShopService} from '../../../services';
 import {GlobalService, ToastService} from '../../../core/services';
-import {AdminViewComponent} from '../../admin/admin-view/admin-view.component';
 import {ShopViewComponent} from '../shop-view/shop-view.component';
 import {StaticConfig} from '../../../core/config';
-import {setOffsetToUTC} from 'ngx-bootstrap/chronos/units/offset';
 
 @Component({
   selector: 'app-shop-list',
@@ -98,12 +96,12 @@ export class ShopListComponent implements OnInit {
           if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
             item.status = status;
             item.isChecked = false;
-            this.toast.showSuccess(item.name + '" Status Successfully Updated');
+            this.toast.showSuccess(' Status Successfully Updated');
           } else {
-            this.toast.showError(item.name + '" Status Updating failed.');
+            this.toast.showError(' Status Updating failed.');
           }
         }).catch(() => {
-          this.toast.showError(item.name + '" Status Updating failed.');
+          this.toast.showError(' Status Updating failed.');
         });
       }
     });
