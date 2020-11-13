@@ -11,17 +11,17 @@ export const navigation = [
   {
     menu: true,
     functions: ['DEFAULT'],
-    name: 'My Account',
+    name: 'Account Mng.',
     children: [
       {
         functions: ['DEFAULT'],
-        name: 'My Profile ',
+        name: 'Profile Mng.',
         url: '/my-account/user-profile',
         icon: 'fas fa-award'
       },
       {
         functions: ['DEFAULT'],
-        name: 'My Shop ',
+        name: 'Shop Mng.',
         url: '/my-account/user-shop',
         icon: 'fas fa-award'
       }

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {ComTabComponent} from '../../core/com-tab/com-tab.component';
 import {MyProfileComponent} from './my-profile/my-profile.component';
 import {MyShopComponent} from './my-shop/my-shop.component';
+import {ChangePasswordComponent} from './change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -13,7 +14,7 @@ const routes: Routes = [
       rootPath: '/my-account/user-profile',
       tabList: [
         {
-          title: 'My Profile',
+          title: 'My Profile Management',
           functions: ['DEFAULT'],
           active: true,
           route: '/profile-details'
@@ -28,11 +29,11 @@ const routes: Routes = [
     path: 'user-shop',
     component: ComTabComponent,
     data: {
-      title: 'My Shop Management',
+      title: 'Shop Management',
       rootPath: '/my-account/user-shop',
       tabList: [
         {
-          title: 'My Shop Details',
+          title: 'My Shop Management',
           functions: ['DEFAULT'],
           active: true,
           route: '/shop-details'
@@ -42,6 +43,10 @@ const routes: Routes = [
     children: [
       {path: 'shop-details', component: MyShopComponent}
     ]
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent
   }
 ];
 

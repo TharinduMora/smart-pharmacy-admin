@@ -10,6 +10,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {SharedModule} from '../../shared/shared.module';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { MyShopComponent } from './my-shop/my-shop.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,6 @@ import { MyShopComponent } from './my-shop/my-shop.component';
     SharedModule,
     MyAccountRoutingModule
   ],
-  declarations: [MyProfileComponent, MyShopComponent]
+  declarations: [MyProfileComponent, MyShopComponent, ChangePasswordComponent]
 })
 export class MyAccountModule { }
