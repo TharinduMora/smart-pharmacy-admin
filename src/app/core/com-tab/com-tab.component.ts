@@ -26,7 +26,6 @@ export class ComTabComponent implements OnInit, AfterViewInit {
     this.activatedRoute.data.subscribe(data => {
 
       this.rootPath = data.rootPath;
-
       data.tabList.forEach((obj: any) => {
         if (this.gSev.getAvailableFunctions(obj.functions).AT_LEAST_ONE) {
           this.tabs.push(obj);
@@ -34,6 +33,7 @@ export class ComTabComponent implements OnInit, AfterViewInit {
       });
 
       if (this.tabs.length > 0) {
+        // this.router.navigate([this.rootPath + this.tabs[0].route]).then();
         this.subscribeToNavigationEvent();
         this.initRoute();
       } else {
