@@ -40,7 +40,7 @@ import {
   AdminService,
   MasterDataService,
   ShopService,
-  RolesService, ProductService,
+  RolesService, ProductService, MyAccountService,
 } from './services';
 
 const API_SERVICES = [
@@ -48,7 +48,8 @@ const API_SERVICES = [
   MasterDataService,
   ShopService,
   RolesService,
-  ProductService
+  ProductService,
+  MyAccountService
 ];
 
 export function HttpLoaderFactory(http: HttpClient) {

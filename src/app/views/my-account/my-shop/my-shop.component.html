@@ -1,0 +1,189 @@
+<ng-template [ngIf]="action === 'edit'" [ngIfElse]="viewTemplate">
+  <form role="form" #f="ngForm" (submit)="onSubmit(f)">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <label>Shop Details</label>
+          </div>
+          <div class="card-body">
+
+            <div class="row">
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Shop Name<span class="required-field"> *</span></label>
+                  <input type="text" class="form-control form-control-sm"
+                         placeholder=" " required [(ngModel)]="shopForm.name" name="name" #name="ngModel">
+                  <div *ngIf="name.invalid && (f.submitted || name.dirty || name.touched)"
+                       class="required-alert alert alert-danger">
+                    <span *ngIf="name?.errors.required">
+                      This field is required.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Email<span class="required-field"> *</span></label>
+                  <input type="text" class="form-control form-control-sm"
+                         placeholder=" " required [(ngModel)]="shopForm.email" name="email" #email="ngModel">
+                  <div *ngIf="email.invalid && (f.submitted || email.dirty || email.touched)"
+                       class="required-alert alert alert-danger">
+                    <span *ngIf="email?.errors.required">
+                      This field is required.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Description<span class="required-field"> *</span></label>
+                  <textarea type="text" class="form-control form-control-sm"
+                            placeholder=" " required [(ngModel)]="shopForm.description" name="description"
+                            #description="ngModel"></textarea>
+                  <div *ngIf="description.invalid && (f.submitted || description.dirty || description.touched)"
+                       class="required-alert alert alert-danger">
+                    <span *ngIf="description?.errors.required">
+                      This field is required.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Telephone</label>
+                  <input type="text" class="form-control form-control-sm"
+                         placeholder=" " [(ngModel)]="shopForm.telephone" name="telephone" #telephone="ngModel">
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>Address</label>
+                  <input type="text" class="form-control form-control-sm"
+                         placeholder=" " [(ngModel)]="shopForm.address" name="address" #address="ngModel">
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>City</label>
+                  <input type="text" class="form-control form-control-sm"
+                         placeholder=" " [(ngModel)]="shopForm.city" name="city" #city="ngModel">
+                </div>
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label>Image</label>
+                  <app-file-upload (onFileUploadEvent)="onFileUploadEvent($event)"
+                                   [config]="imageConfig"></app-file-upload>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row" style="padding-top: 5px;">
+              <div class="col-md-12 text-right">
+                <button type="button" (click)="onCancelShopForm()"
+                        class="btn btn-sm btn-light"><i class="fa fa-dot-circle-o"></i> Cancel
+                </button>&nbsp;
+                <button type="submit"
+                        class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit
+                </button>&nbsp;
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #viewTemplate>
+  <div class="row" style="padding-top: 5px; padding-bottom: 5px;">
+    <div class="col-md-12 text-right">
+      <button type="button" (click)="onClickEdit()"
+              class="btn btn-sm btn-danger"><i class="fa fa-dot-circle-o"></i> Edit
+      </button>&nbsp;
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12" *ngIf="shop">
+      <div class="card">
+        <div class="card-body">
+
+          <div class="row view-item-underline">
+            <div class="col-md-4 view-label-style"><label>Shop Name</label></div>
+            <div class="col-md-8">
+              <span> {{shop.name || 'N/A'}}</span>
+            </div>
+          </div>
+
+
+          <div class="row view-item-underline">
+            <div class="col-md-4 view-label-style"><label>Email</label></div>
+            <div class="col-md-8">
+              <span> {{shop.email || 'N/A'}}</span>
+            </div>
+          </div>
+
+          <div class="row view-item-underline">
+            <div class="col-md-4 view-label-style"><label>Description</label></div>
+            <div class="col-md-8">
+              <span> {{shop.description || 'N/A'}}</span>
+            </div>
+          </div>
+
+          <div class="row view-item-underline" >
+            <div class="col-md-4 view-label-style"><label>Telephone</label></div>
+            <div class="col-md-8">
+              <span> {{shop.telephone || 'N/A'}}</span>
+            </div>
+          </div>
+
+          <div class="row view-item-underline">
+            <div class="col-md-4 view-label-style"><label>Address</label></div>
+            <div class="col-md-8">
+              <span> {{shop.address || 'N/A'}}</span>
+            </div>
+          </div>
+
+          <div class="row view-item-underline">
+            <div class="col-md-4 view-label-style"><label>City</label></div>
+            <div class="col-md-8">
+              <span> {{shop.city || 'N/A'}}</span>
+            </div>
+          </div>
+
+          <div class="row view-item-underline">
+            <div class="col-md-4 view-label-style"><label>Image</label></div>
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-8">
+                      <img [src]="globalVariable.appConfig.IMAGE_URL + shop.image"
+                           class="rounded" alt="image" style="width: 100%;height: 100%">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

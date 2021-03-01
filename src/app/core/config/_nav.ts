@@ -10,6 +10,25 @@ export const navigation = [
   },
   {
     menu: true,
+    functions: ['DEFAULT'],
+    name: 'Account Mng.',
+    children: [
+      {
+        functions: ['DEFAULT'],
+        name: 'Profile Mng.',
+        url: '/my-account/user-profile',
+        icon: 'fas fa-award'
+      },
+      {
+        functions: ['DEFAULT'],
+        name: 'Shop Mng.',
+        url: '/my-account/user-shop',
+        icon: 'fas fa-award'
+      }
+    ]
+  },
+  {
+    menu: true,
     functions: ['FIND_ADMIN_BY_CRITERIA'],
     name: 'Admin',
     children: [

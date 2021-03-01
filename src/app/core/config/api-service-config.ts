@@ -1,5 +1,11 @@
 export class ApiServiceConfig {
 
+  public static MY_ACCOUNT_API_SERVICE = {
+    NAME : 'My Account Service',
+    KEY : 'GBL_SEV',
+    ROUTE_PATH : '/my-account'
+  };
+
   public static ADMIN_API_SERVICE = {
     NAME : 'Admin Management Service',
     KEY : 'GBL_SEV',
