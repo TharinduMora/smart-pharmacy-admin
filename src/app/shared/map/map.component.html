@@ -1,0 +1,6 @@
+<div id="map-el" class="my-map">
+    <agm-map (mapReady)="onMapReady($event)" [style.height.px]="height" [latitude]="lat" [longitude]="lng" [zoom]="12" (mapClick)="onClickLoc($event)">
+        <agm-marker [latitude]="selectedLat" [longitude]="selectedLon">
+        </agm-marker>
+    </agm-map>
+</div>

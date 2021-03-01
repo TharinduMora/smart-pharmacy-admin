@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {Subject} from 'rxjs';
-import {BsModalRef} from 'ngx-bootstrap';
-import {MasterDataService, ShopService} from '../../../services';
-import {NgForm} from '@angular/forms';
-import {GlobalVariable} from '../../../core/com-classes';
-import {ToastService} from '../../../core/services';
-import {StaticConfig} from '../../../core/config';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { BsModalRef } from 'ngx-bootstrap';
+import { MasterDataService, ShopService } from '../../../services';
+import { NgForm } from '@angular/forms';
+import { GlobalVariable } from '../../../core/com-classes';
+import { ToastService } from '../../../core/services';
+import { StaticConfig } from '../../../core/config';
 
 @Component({
   selector: 'app-shop-view',
@@ -25,6 +25,13 @@ export class ShopViewComponent implements OnInit, AfterViewInit {
     width: 100,
     height: 100,
   };
+
+  shopLocation = {
+    lat: 0,
+    lng: 0
+  };
+
+  dataLoaded = false;
 
   constructor(
     public bsModalRef: BsModalRef,
@@ -47,7 +54,10 @@ export class ShopViewComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       if (this.action === 'edit' || this.action === 'view') {
         this.shop = this.data;
+        this.shopLocation.lat = this.shop.latitude;
+        this.shopLocation.lng = this.shop.longitude;
         this.setImageToConfig(this.shop.image);
+        this.dataLoaded = true;
       }
     }, 100);
   }
@@ -93,4 +103,8 @@ export class ShopViewComponent implements OnInit, AfterViewInit {
     this.bsModalRef.hide();
   }
 
+  onSelectLocation(val) {
+    this.shop.latitude = val.lat;
+    this.shop.longitude = val.lng;
+  }
 }

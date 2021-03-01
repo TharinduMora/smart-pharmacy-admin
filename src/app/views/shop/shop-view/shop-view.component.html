@@ -291,5 +291,14 @@
 
     </ng-template>
 
+
+    <div class="row">
+      <div class="col-md-3 view-label-style"><label>Shop Location</label></div>
+      <div class="col-md-9">
+        <app-map *ngIf="action == 'add' || dataLoaded" (clickedLocation)="onSelectLocation($event)" [marker]="shopLocation"></app-map>
+      </div>
+    </div>
+   
+
   </div>
 </div>
