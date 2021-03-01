@@ -106,5 +106,8 @@ export class ShopViewComponent implements OnInit, AfterViewInit {
   onSelectLocation(val) {
     this.shop.latitude = val.lat;
     this.shop.longitude = val.lng;
+
+    this.shopLocation.lat = val.lat;
+    this.shopLocation.lng = val.lng;
   }
 }
