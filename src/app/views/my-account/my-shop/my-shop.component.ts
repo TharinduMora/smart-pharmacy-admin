@@ -43,7 +43,7 @@ export class MyShopComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.updateShop(this.shop);
+      this.updateShop(this.shopForm);
     }
   }
 

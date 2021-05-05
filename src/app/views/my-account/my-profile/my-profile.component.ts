@@ -43,12 +43,12 @@ export class MyProfileComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
-      this.updateAdmin(this.admin);
+      this.updateAdmin(this.adminForm);
     }
   }
 
   getAdminDetails() {
-    this.myAccountService.getAdminById(this.globalVariable.authentication.shopId).then((res: any) => {
+    this.myAccountService.getAdminById(this.globalVariable.authentication.id).then((res: any) => {
       if (res) {
         this.admin = res;
         this.adminForm = {...this.admin};

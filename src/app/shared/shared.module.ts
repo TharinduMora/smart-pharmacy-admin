@@ -12,6 +12,7 @@ import { AgmCoreModule } from '@agm/core';
     ProgressbarModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCkxQ0D7vO9X7nUn9KokASdMCzFcVwTgrY',
+      // apiKey: 'AIzaSyAjp4drz3dgzgxUfqHja-noN_Ct228M33Q',
       libraries: ['places', 'geocoder', 'geometry']
     }),
   ],
