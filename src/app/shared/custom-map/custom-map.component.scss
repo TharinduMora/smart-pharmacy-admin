@@ -1,0 +1,15 @@
+.autocomplete-search-bar {
+  position: absolute;
+  top: 0%;
+  padding: 5px;
+  width: 100%;
+  font-size: 11px;
+  z-index: 10000;
+  background-color: rgba(255, 255, 255, 0.85);
+  border: none;
+  outline: none;
+}
+
+.map-container {
+  position: relative;
+}

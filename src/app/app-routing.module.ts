@@ -23,6 +23,14 @@ const routes: Routes = [
     },
     loadChildren: './pages/pages.module#PagesModule'
   },
+  {
+    path: 'client',
+    component: SimpleLayoutComponent,
+    data: {
+      title: 'Pages'
+    },
+    loadChildren: './views/client/client.module#ClientModule'
+  },
   { path: '**', redirectTo: '404' }
 ];
 
