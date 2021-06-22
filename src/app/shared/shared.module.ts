@@ -7,6 +7,7 @@ import { FileUploadComponent } from "./file-upload/file-upload.component";
 import { StatusUpdateComponent } from "./status-update/status-update.component";
 import { AgmCoreModule } from "@agm/core";
 import { CustomMapComponent } from "./custom-map/custom-map.component";
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { CustomMapComponent } from "./custom-map/custom-map.component";
       // apiKey: 'AIzaSyAjp4drz3dgzgxUfqHja-noN_Ct228M33Q',
       libraries: ["places", "geocoder", "geometry"],
     }),
+    AgmSnazzyInfoWindowModule
   ],
   // apiKey: 'AIzaSyAvcDy5ZYc2ujCS6TTtI3RYX5QmuoV8Ffw'
   declarations: [

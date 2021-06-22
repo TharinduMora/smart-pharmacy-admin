@@ -1,70 +1,93 @@
-<div class="map-container">
-    <input class="autocomplete-search-bar" [ngModel]="address" type="text" (keydown.enter)="$event.preventDefault()"
-           autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-
-    <agm-map (mapReady)="onMapReady($event)"
-             [style.height.px]="height"
-             [latitude]="currentLocation.latitude"
-             [longitude]="currentLocation.longitude"
-             [zoom]="currentZoomLevel"
-             [maxZoom]="maxZoomLevel"
-             [minZoom]="minZoomLevel"
-             (zoomChange)="onZoom($event)">
-             <!-- [fitBounds]="true" -->
-        <!-- <agm-marker *ngFor="let location of markerList;let i=index;" [latitude]="location.latitude"
-                    [longitude]="location.longitude"
-                    [label]="location.isHeadOffice?'H':''">
-            <agm-snazzy-info-window [maxWidth]="300" [maxHeight]="300" [closeWhenOthersOpen]="true"
-                                    [showCloseButton]="false">
-                <ng-template>
-                    <ion-grid>
-                        <ion-row justify-content-center style="background-color: #007eb4;color: white; padding: 5px;">
-                            <b>{{location['name_' + gVariable.currentLang.code]|uppercase}}</b>
-                        </ion-row>
-                        <ion-row justify-content-center class="info-window-address pad-5px">
-                            <ion-col size="2">
-                                <ion-icon name="pin"></ion-icon>
-                            </ion-col>
-                            <ion-col size="10"> {{location.address}}</ion-col>
-                        </ion-row>
-                        <ion-row justify-content-center class="info-window-address">
-                            <ion-col size="2">
-                                <ion-icon name="call"></ion-icon>
-                            </ion-col>
-                            <ion-col size="10"> {{location.telephone}}</ion-col>
-                        </ion-row>
-                        <ion-row justify-content-center class="info-window-address">
-                            <ion-col size="2">
-                                <ion-icon name="mail"></ion-icon>
-                            </ion-col>
-                            <ion-col size="10"> {{location.email}}</ion-col>
-                        </ion-row>
-                        <ion-row justify-content-center class="pad-5px">
-                            <ion-button (click)="onClickView(location.dealer.id)" size="small"
-                                        color="sellMyCarGreen">{{'MapComponent.VIEW'|translate}}</ion-button>
-                        </ion-row>
-                    </ion-grid>
-                </ng-template>
+<div class="container">
+  <!-- <div class="row"></div> -->
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-sm-12">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Radius</span>
+        </div>
+        <input
+          type="number"
+          class="form-control"
+          placeholder="Radius of the circle"
+          aria-label="Radius"
+          [(ngModel)]="radiusByKiloMeters"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-success"
+            type="submit"
+            (click)="onChangeRadious()"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 col-sm-12">
+      <div class="map-container">
+        <agm-map
+          (mapReady)="onMapReady($event)"
+          [style.height.px]="height"
+          [latitude]="currentLocation.latitude"
+          [longitude]="currentLocation.longitude"
+          [zoom]="currentZoomLevel"
+          [maxZoom]="maxZoomLevel"
+          [minZoom]="minZoomLevel"
+        >
+          <agm-marker
+            *ngFor="let location of markerList; let i = index"
+            [latitude]="location.latitude"
+            [longitude]="location.longitude"
+          >
+            <agm-snazzy-info-window
+              [maxWidth]="300"
+              [maxHeight]="300"
+              [closeWhenOthersOpen]="true"
+              [showCloseButton]="true"
+            >
+              <ng-template>
+                <div class="row snazzy-text">
+                  <div class="col-12"><b>{{ location.name }}</b></div>
+                  <div class="col-12">
+                    {{ location.address }},{{ location.city }}
+                  </div>
+                  <div class="col-12">{{ location.telephone }}</div>
+                  <div class="col-12 justify-content-center">
+                    <button
+                      class="btn btn-success btn-sm"
+                      (click)="onClickPharmacy(location)"
+                    >
+                      Visit Pharmacy
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
             </agm-snazzy-info-window>
-        </agm-marker> -->
+          </agm-marker>
+          <agm-marker
+            [latitude]="currentLocation.latitude"
+            [longitude]="currentLocation.longitude"
+            [zIndex]="1000"
+            iconUrl="assets/icon/standing-man-30.png"
+            (dragEnd)="onChangeCurrentLocation($event)"
+            [animation]="'DROP'"
+            [markerDraggable]="true"
+          >
+          </agm-marker>
 
-        <agm-marker
-                [latitude]="currentLocation.latitude"
-                [longitude]="currentLocation.longitude"
-                [zIndex]="1000"
-                iconUrl="assets/icon/standing-man-30.png"
-                (dragEnd)="onChangeCurrentLocation($event)"
-                [animation]="'DROP'"
-                [markerDraggable]="true">
-        </agm-marker>
-
-        <agm-circle [latitude]="currentLocation.latitude"
-                    [longitude]="currentLocation.longitude"
-                    strokeColor="#3131ff"
-                    strokeWeight="1"
-                    strokeOpacity="0.5"
-                    fillColor="#4b31ff"
-                    fillOpacity="0.1"
-                    [radius]="radius"></agm-circle>
-    </agm-map>
+          <agm-circle
+            [latitude]="currentLocation.latitude"
+            [longitude]="currentLocation.longitude"
+            strokeColor="#3131ff"
+            strokeWeight="1"
+            strokeOpacity="0.5"
+            fillColor="#4b31ff"
+            fillOpacity="0.1"
+            [radius]="radiusByMeters"
+          ></agm-circle>
+        </agm-map>
+      </div>
+    </div>
+  </div>
 </div>

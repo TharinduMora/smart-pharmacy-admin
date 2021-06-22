@@ -1,3 +1,13 @@
 <div class="container-fluid">
-  <app-custom-map [markerList]="[]"></app-custom-map>
+  <input
+  type="text"
+  class="form-control"
+  placeholder="Medicine Name"
+  aria-label="Medicine Name"
+  [(ngModel)]="productName"
+/>
+  <app-custom-map
+    [markerList]="filteredShopList"
+    (searchingArea)="onCurrentLocationChange($event)"
+  ></app-custom-map>
 </div>

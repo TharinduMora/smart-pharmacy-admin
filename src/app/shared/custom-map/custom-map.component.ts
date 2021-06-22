@@ -1,17 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  NgZone,
-  OnInit,
-  Output,
-  ViewChild,
-} from "@angular/core";
-import { AgmMarker, MapsAPILoader } from "@agm/core";
-import { Marker } from "@agm/core/services/google-maps-types";
-
-declare var google: any;
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 @Component({
   selector: "app-custom-map",
@@ -25,116 +12,46 @@ export class CustomMapComponent implements OnInit {
 
   public height = 500;
   public currentLocation = {
-    latitude: 7.87,
-    longitude: 80.3,
+    latitude: 6.767047694167956,
+    longitude: 79.9862745390625,
   };
-  public myLocation = {
-    latitude: 0,
-    longitude: 0,
-  };
-  public radius = 1000;
-  private map: any;
+  public radiusByMeters = 10 * 1000;
+  public radiusByKiloMeters;
 
   public minZoomLevel = 5;
   public maxZoomLevel = 18;
   public currentZoomLevel = 8;
 
-  address: string;
-
-  private geoCoder;
-
-  private autocompleteService;
-
-  @ViewChild("search")
-  public searchElementRef: ElementRef;
-
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
+  constructor() {}
 
   ngOnInit() {
-    this.mapsAPILoader.load().then(() => {
-      this.autocompleteService = new google.maps.places.AutocompleteService();
-      const autocomplete = new google.maps.places.Autocomplete(
-        this.searchElementRef.nativeElement,
-        {
-          types: ["address"],
-          // "address",
-        }
-      );
-      this.geoCoder = new google.maps.Geocoder();
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          const place = autocomplete.getPlace();
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-          const newLatitude = place.geometry.location.lat();
-          const newLongitude = place.geometry.location.lng();
-          this.setCurrentLocation(newLatitude, newLongitude);
-        });
-      });
-    });
-  }
-
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode(
-      { location: { lat: latitude, lng: longitude } },
-      (results, status) => {
-        if (status === "OK") {
-          if (results[0]) {
-            this.address = results[0].formatted_address;
-          }
-        }
-      }
-    );
+    this.radiusByKiloMeters = this.radiusByMeters / 1000;
   }
 
   onMapReady(map) {
-    this.map = map;
-    map.streetViewControl = false;
     this.getMyLocation().then((res: any) => {
       this.setCurrentLocation(res.coords.latitude, res.coords.longitude);
-      this.getAddress(res.coords.latitude, res.coords.longitude);
-      this.myLocation.latitude = res.coords.latitude;
-      this.myLocation.longitude = res.coords.longitude;
+      this.emitAreaDetails();
     });
   }
 
-  onZoom(event) {
-    if (
-      this.minZoomLevel < this.currentZoomLevel &&
-      this.maxZoomLevel > this.currentZoomLevel
-    ) {
-      // this.drawCircle();
-    }
-    this.currentZoomLevel = event;
+  onClickPharmacy(pharmacy) {
+    console.log(pharmacy);
   }
 
   onChangeCurrentLocation(event) {
     this.setCurrentLocation(event.coords.lat, event.coords.lng);
-    this.getAddress(event.coords.lat, event.coords.lng);
+    this.emitAreaDetails();
+  }
+
+  onChangeRadious() {
+    this.radiusByMeters = this.radiusByKiloMeters * 1000;
+    this.emitAreaDetails();
   }
 
   setCurrentLocation(latitude: number, longitude: number) {
     this.currentLocation.latitude = latitude;
     this.currentLocation.longitude = longitude;
-    this.drawCircle();
-    console.log(this.currentLocation);
-  }
-
-  private drawCircle() {
-    this.radius = 10 * 1000;
-    this.emitAreaDetails();
-    // setTimeout(() => {
-    //   const bounds = this.map.getBounds();
-    //   const upperBound = bounds.na.l;
-    //   const lowerBound = bounds.na.j;
-    //   this.map.setCenter({
-    //     lat: this.currentLocation.latitude,
-    //     lng: this.currentLocation.longitude,
-    //   });
-    //   this.radius = Math.round((111111 * (upperBound - lowerBound)) / 2.1);
-    //   this.emitAreaDetails();
-    // }, 500);
   }
 
   onClickView(i) {
@@ -144,7 +61,7 @@ export class CustomMapComponent implements OnInit {
   emitAreaDetails() {
     this.searchingArea.emit({
       currentLocation: this.currentLocation,
-      radius: this.radius,
+      radius: this.radiusByMeters,
     });
   }
 
@@ -152,19 +69,10 @@ export class CustomMapComponent implements OnInit {
     return new Promise((resolve, reject) => {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
-          // console.log(position);
-          // this.lat = position.coords.latitude;
-          // this.lng = position.coords.longitude;
-          // this.zoom = 15;
+          this.currentZoomLevel = 10;
           resolve(position);
         });
       }
-      // this.geolocation.getCurrentPosition().then((resp) => {
-      //     resolve(resp);
-      // }).catch((error) => {
-      //     reject(false);
-      //     console.log('Error getting location', error);
-      // });
     });
   }
 }
