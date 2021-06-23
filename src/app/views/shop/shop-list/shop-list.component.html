@@ -29,7 +29,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let record of gridRecordList; let i = index">
-              <th><input type="checkbox" [(ngModel)]="record.isChecked"></th>
+              <th><input type="checkbox" [(ngModel)]="record.isChecked" [disabled]="record.id === 1"></th>
               <td>{{record.name || 'N/A'}}</td>
               <td>{{record.email || 'N/A'}}</td>
               <td>{{record.address || 'N/A'}}</td>

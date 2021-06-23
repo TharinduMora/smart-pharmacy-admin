@@ -1,13 +1,54 @@
-<div class="container-fluid">
-  <input
-  type="text"
-  class="form-control"
-  placeholder="Medicine Name"
-  aria-label="Medicine Name"
-  [(ngModel)]="productName"
-/>
-  <app-custom-map
-    [markerList]="filteredShopList"
-    (searchingArea)="onCurrentLocationChange($event)"
-  ></app-custom-map>
+<div class="row justify-content-center">
+  <div class="col-md-10 col-sm-12">
+    <div class="row">
+      <div class="col-6">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"
+              >Medicine Name</span
+            >
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            aria-label="Medicine Name"
+            [(ngModel)]="filterObject.productName"
+          />
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Radius</span>
+          </div>
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Radius of the circle"
+            aria-label="Radius"
+            [(ngModel)]="radiusByKiloMeters"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        <button
+          class="btn btn-success btn-block"
+          type="submit"
+          (click)="onApplyFilter()"
+        >
+          Apply
+        </button>
+      </div>
+    </div>
+    <br />
+    <app-custom-map
+      [markerList]="filteredShopList"
+      [radiusByKiloMeters]="radiusByKiloMeters"
+      (onCurrentLocationChanged)="onCurrentLocationChange($event)"
+      (onRadiusChanged)="onRadiusChanged($event)"
+      (onClickPharmacy)="onClickPharmacy($event)"
+    ></app-custom-map>
+  </div>
 </div>

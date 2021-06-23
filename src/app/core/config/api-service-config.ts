@@ -41,5 +41,9 @@ export class ApiServiceConfig {
     KEY : 'GBL_SEV',
     ROUTE_PATH: '/role_service'
   };
-
+  public static CLIENT_API_SERVICE = {
+    NAME: 'Client-API-Services',
+    KEY : 'GBL_SEV',
+    ROUTE_PATH: '/client'
+  };
 }

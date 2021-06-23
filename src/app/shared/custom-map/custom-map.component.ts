@@ -1,22 +1,32 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from "@angular/core";
 
 @Component({
   selector: "app-custom-map",
   templateUrl: "./custom-map.component.html",
   styleUrls: ["./custom-map.component.scss"],
 })
-export class CustomMapComponent implements OnInit {
+export class CustomMapComponent implements OnInit, OnChanges {
   @Input() markerList: any;
-  @Output() searchingArea = new EventEmitter();
-  @Output() clickedLocationIndex = new EventEmitter();
+  @Input() radiusByKiloMeters: number = 10;
+  @Output() onCurrentLocationChanged = new EventEmitter();
+  @Output() onRadiusChanged = new EventEmitter();
+  @Output() onClickPharmacy = new EventEmitter();
 
   public height = 500;
   public currentLocation = {
     latitude: 6.767047694167956,
     longitude: 79.9862745390625,
   };
-  public radiusByMeters = 10 * 1000;
-  public radiusByKiloMeters;
+  public radiusByMeters;
+  // public radiusByKiloMeters;
 
   public minZoomLevel = 5;
   public maxZoomLevel = 18;
@@ -25,27 +35,30 @@ export class CustomMapComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.radiusByKiloMeters = this.radiusByMeters / 1000;
+    // this.radiusByKiloMeters = this.radiusByMeters / 1000;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.radiusByKiloMeters) {
+      this.radiusByMeters = this.radiusByKiloMeters * 1000;
+      this.onRadiusChanged.emit({ radius: this.radiusByMeters });
+    }
   }
 
   onMapReady(map) {
+    this.radiusByMeters = this.radiusByKiloMeters * 1000;
     this.getMyLocation().then((res: any) => {
       this.setCurrentLocation(res.coords.latitude, res.coords.longitude);
       this.emitAreaDetails();
     });
   }
 
-  onClickPharmacy(pharmacy) {
-    console.log(pharmacy);
+  onClickShop(pharmacy) {
+    this.onClickPharmacy.emit({ id: pharmacy.id });
   }
 
   onChangeCurrentLocation(event) {
     this.setCurrentLocation(event.coords.lat, event.coords.lng);
-    this.emitAreaDetails();
-  }
-
-  onChangeRadious() {
-    this.radiusByMeters = this.radiusByKiloMeters * 1000;
     this.emitAreaDetails();
   }
 
@@ -54,12 +67,8 @@ export class CustomMapComponent implements OnInit {
     this.currentLocation.longitude = longitude;
   }
 
-  onClickView(i) {
-    this.clickedLocationIndex.emit({ id: i });
-  }
-
   emitAreaDetails() {
-    this.searchingArea.emit({
+    this.onCurrentLocationChanged.emit({
       currentLocation: this.currentLocation,
       radius: this.radiusByMeters,
     });

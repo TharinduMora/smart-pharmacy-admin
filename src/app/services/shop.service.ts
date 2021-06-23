@@ -48,7 +48,7 @@ export class ShopService {
   ) {
     const formattedReq = req;
     let productNameQuery = "";
-    if (productName !== "") {
+    if (productName) {
       productNameQuery = "?productName=" + productName;
     }
     return new Promise((resolve, reject) =>
