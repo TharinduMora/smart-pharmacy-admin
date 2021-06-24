@@ -5,6 +5,7 @@ import {GlobalService, ToastService} from '../../../core/services';
 import {ProductService} from '../../../services';
 import {GlobalVariable} from '../../../core/com-classes';
 import {ProductViewComponent} from '../product-view/product-view.component';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
   selector: 'app-product-list',
@@ -94,17 +95,17 @@ export class ProductListComponent implements OnInit {
           primaryId: item.id,
           status: status
         };
-        // this.productSev.updateProductStatus(req).then((res: any) => {
-        //   if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
-        //     item.status = status;
-        //     item.isChecked = false;
-        //     this.toast.showSuccess(item.name + '" Status Successfully Updated');
-        //   } else {
-        //     this.toast.showError(item.name + '" Status Updating failed.');
-        //   }
-        // }).catch(() => {
-        //   this.toast.showError(item.name + '" Status Updating failed.');
-        // });
+        this.productSev.updateProductStatus(req).then((res: any) => {
+          if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
+            item.status = status;
+            item.isChecked = false;
+            this.toast.showSuccess(item.name + '" Status Successfully Updated');
+          } else {
+            this.toast.showError(item.name + '" Status Updating failed.');
+          }
+        }).catch(() => {
+          this.toast.showError(item.name + '" Status Updating failed.');
+        });
       }
     });
 
@@ -162,6 +163,7 @@ export class ProductListComponent implements OnInit {
         this.gridRecordList = res.data;
         if (this.pagination.recordCount === 0) {
           this.pagination.recordCount = res.recordCount;
+          // console.log(this.pagination)
         }
       }
     }).catch((e) => {

@@ -36,14 +36,22 @@ export class HomeComponent implements OnInit {
   }
 
   onClickPharmacy(event: any) {
+    // if (event.id) {
+    //   if (this.filterObject.productName) {
+    //     this.router.navigate(["/client/shop/", event.id], {
+    //       queryParams: { productName: this.filterObject.productName },
+    //     });
+    //   } else {
+    //     this.router.navigate(["/client/shop/", event.id]);
+    //   }
+    // }
+
     if (event.id) {
+      let url = "/client/shop/" + event.id;
       if (this.filterObject.productName) {
-        this.router.navigate(["/client/shop/", event.id], {
-          queryParams: { productName: this.filterObject.productName },
-        });
-      } else {
-        this.router.navigate(["/client/shop/", event.id]);
+        url = url + "?medicineKeyword=" + this.filterObject.productName;
       }
+      window.open(url);
     }
   }
 
