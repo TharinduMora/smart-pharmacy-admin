@@ -15,15 +15,15 @@ export const navigation = [
     children: [
       {
         functions: ['DEFAULT'],
-        name: 'Profile Mng.',
+        name: 'My Profile Mng.',
         url: '/my-account/user-profile',
-        icon: 'fas fa-award'
+        icon: 'fas fa-user'
       },
       {
         functions: ['DEFAULT'],
-        name: 'Pharmacy Mng.',
+        name: 'My Pharmacy Mng.',
         url: '/my-account/user-shop',
-        icon: 'fas fa-award'
+        icon: 'fas fa-home'
       }
     ]
   },
@@ -42,23 +42,23 @@ export const navigation = [
   {
     menu: true,
     functions: ['FIND_SHOP_BY_CRITERIA'],
-    name: 'Pharmacy',
+    name: 'Pharmacies',
     children: [
       {
         functions: ['FIND_SHOP_BY_CRITERIA'],
-        name: 'Pharmacy Management',
+        name: 'Pharmacies Management',
         url: '/shop',
-        icon: 'fas fa-award'
+        icon: 'fas fa-heartbeat'
       }]
   },
   {
     menu: true,
     functions: ['FIND_PRODUCT_BY_CRITERIA'],
-    name: 'Medicine',
+    name: 'Medicines',
     children: [
       {
         functions: ['FIND_PRODUCT_BY_CRITERIA'],
-        name: 'Medicine Management',
+        name: 'Medicines Management',
         url: '/product',
         icon: 'fas fa-award'
       }]

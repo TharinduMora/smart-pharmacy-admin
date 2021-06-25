@@ -8,11 +8,11 @@ const routes: Routes = [
     path: '',
     component: ComTabComponent,
     data: {
-      title: 'Shop Management',
+      title: 'Pharmacy Management',
       rootPath: '/shop',
       tabList: [
         {
-          title: 'Shop List',
+          title: 'Pharmacy List',
           functions: ['FIND_SHOP_BY_CRITERIA'],
           active: false,
           route: '/list'
