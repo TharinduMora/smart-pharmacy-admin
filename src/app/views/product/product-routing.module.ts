@@ -11,11 +11,11 @@ const routes: Routes = [
     path: '',
     component: ComTabComponent,
     data: {
-      title: 'Product Management',
+      title: 'Medicine Management',
       rootPath: '/product',
       tabList: [
         {
-          title: 'Product List',
+          title: 'Medicine List',
           functions: ['FIND_PRODUCT_BY_CRITERIA'],
           active: false,
           route: '/list'

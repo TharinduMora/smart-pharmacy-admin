@@ -21,7 +21,7 @@ export const navigation = [
       },
       {
         functions: ['DEFAULT'],
-        name: 'Shop Mng.',
+        name: 'Pharmacy Mng.',
         url: '/my-account/user-shop',
         icon: 'fas fa-award'
       }
@@ -42,11 +42,11 @@ export const navigation = [
   {
     menu: true,
     functions: ['FIND_SHOP_BY_CRITERIA'],
-    name: 'Shop',
+    name: 'Pharmacy',
     children: [
       {
         functions: ['FIND_SHOP_BY_CRITERIA'],
-        name: 'Shop Management',
+        name: 'Pharmacy Management',
         url: '/shop',
         icon: 'fas fa-award'
       }]
@@ -54,11 +54,11 @@ export const navigation = [
   {
     menu: true,
     functions: ['FIND_PRODUCT_BY_CRITERIA'],
-    name: 'Product',
+    name: 'Medicine',
     children: [
       {
         functions: ['FIND_PRODUCT_BY_CRITERIA'],
-        name: 'Product Management',
+        name: 'Medicine Management',
         url: '/product',
         icon: 'fas fa-award'
       }]

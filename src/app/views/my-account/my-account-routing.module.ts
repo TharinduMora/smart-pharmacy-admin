@@ -29,11 +29,11 @@ const routes: Routes = [
     path: 'user-shop',
     component: ComTabComponent,
     data: {
-      title: 'Shop Management',
+      title: 'Pharmacy Management',
       rootPath: '/my-account/user-shop',
       tabList: [
         {
-          title: 'My Shop Management',
+          title: 'My Pharmacy Management',
           functions: ['DEFAULT'],
           active: true,
           route: '/shop-details'

@@ -14,7 +14,7 @@
       [longitude]="location.longitude"
     >
       <agm-snazzy-info-window
-        [maxWidth]="300"
+        [maxWidth]="200"
         [maxHeight]="300"
         [closeWhenOthersOpen]="true"
         [showCloseButton]="true"
@@ -24,7 +24,7 @@
             <div class="col-12">
               <b>{{ location.name }}</b>
             </div>
-            <div class="col-12">{{ location.address }},{{ location.city }}</div>
+            <div class="col-12">{{ location.city }}</div>
             <div class="col-12">{{ location.telephone }}</div>
             <div class="col-12 justify-content-center">
               <button class="btn btn-success btn-sm"

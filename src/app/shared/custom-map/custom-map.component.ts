@@ -22,8 +22,8 @@ export class CustomMapComponent implements OnInit, OnChanges {
 
   public height = 500;
   public currentLocation = {
-    latitude: 6.767047694167956,
-    longitude: 79.9862745390625,
+    latitude: 6.887040398029209,
+    longitude: 79.9313428984375
   };
   public radiusByMeters;
   // public radiusByKiloMeters;
@@ -47,10 +47,11 @@ export class CustomMapComponent implements OnInit, OnChanges {
 
   onMapReady(map) {
     this.radiusByMeters = this.radiusByKiloMeters * 1000;
-    this.getMyLocation().then((res: any) => {
-      this.setCurrentLocation(res.coords.latitude, res.coords.longitude);
-      this.emitAreaDetails();
-    });
+    // this.getMyLocation().then((res: any) => {
+    //   this.setCurrentLocation(res.coords.latitude, res.coords.longitude);
+    //   this.emitAreaDetails();
+    // });
+    this.emitAreaDetails();
   }
 
   onClickShop(pharmacy) {

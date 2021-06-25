@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-body">
+    <div style="width: 100%; height: 100px">
+      <img
+        [src]="globalVariable.appConfig.IMAGE_URL + pharmacyDetails?.image"
+        class="rounded"
+        alt="image"
+      />
+    </div>
+
+    <h5 class="card-title">{{ pharmacyDetails?.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      <p>{{ pharmacyDetails?.city }}</p>
+      {{ pharmacyDetails?.telephone }}
+    </h6>
+    <p class="card-text">
+      {{ pharmacyDetails?.email }}
+    </p>
+    <button class="btn btn-success btn-sm btn-block" (click)="onClickVisit()">
+      Visit Pharmacy
+    </button>
+  </div>
+</div>

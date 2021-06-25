@@ -1,3 +1,4 @@
+import { PharmacyTileComponent } from "./pharmacy-tile/pharmacy-tile.component";
 import { ShopComponent } from "./shop/shop.component";
 import { ClientLayoutComponent } from "./client-layout/client-layout.component";
 import { FormsModule } from "@angular/forms";
@@ -10,6 +11,11 @@ import { ClientRoutingModule } from "./client-routing.module";
 
 @NgModule({
   imports: [CommonModule, ClientRoutingModule, SharedModule, FormsModule],
-  declarations: [HomeComponent, ClientLayoutComponent, ShopComponent],
+  declarations: [
+    HomeComponent,
+    ClientLayoutComponent,
+    ShopComponent,
+    PharmacyTileComponent,
+  ],
 })
 export class ClientModule {}
