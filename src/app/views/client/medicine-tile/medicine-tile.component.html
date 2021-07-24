@@ -14,15 +14,16 @@
     <h5 class="card-title">{{ medicine?.name }}</h5>
     <h6 class="card-subtitle mb-2 text-muted">
       {{ medicine?.price | number: "1.2-2" }} LKR
+      <span class="unit-text">({{ medicine?.unit || "N/A" }})</span>
     </h6>
-    <span class="unit-text">{{ medicine?.unit || "N/A" }}</span>
+    <br>
     <div class="row">
       <div class="col-12">
         <button
-          class="btn btn-success btn-block"
+          class="btn btn-primary btn-sm btn-block"
           [routerLink]="['/client/medicine/',medicine?.id]"
         >
-          View
+          View Details
         </button>
       </div>
     </div>
