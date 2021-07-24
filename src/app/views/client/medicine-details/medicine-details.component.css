@@ -1,0 +1,50 @@
+.p-details-bg {
+  background-color: rgb(240 240 240 / 96%);
+  padding: 10px;
+}
+
+.unit-text {
+  font-size: 12px;
+  color: gray;
+}
+
+.p-name {
+  padding: 10px 0px;
+  font-size: 20px;
+}
+.pharmacy-name {
+  padding: 10px;
+  font-size: 20px;
+  color: rgb(7, 7, 105);
+}
+
+.p-price {
+  font-size: 16px;
+  color: rgb(18, 115, 18);
+}
+
+.p-unit {
+  font-size: 12px;
+  color: grey;
+}
+
+.p-desc {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.707);
+  padding-bottom: 20px;
+}
+
+.image-container {
+  border: #c0c0c0 1px solid;
+  border-radius: 5px;
+  padding: 20px;
+  width: auto;
+  height: auto;
+}
+
+.p-oos {
+  font-size: 12px;
+  color: red;
+  min-height: 12px;
+}
+

@@ -54,6 +54,33 @@
 
                   <div class="col-sm-6">
                     <div class="form-group">
+                      <label>Unit<span class="required-field"> *</span></label>
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        placeholder=" "
+                        required
+                        [(ngModel)]="product.unit"
+                        name="unit"
+                        #unit="ngModel"
+                        maxlength="45"
+                      />
+                      <div
+                        *ngIf="
+                          unit.invalid &&
+                          (f.submitted || unit.dirty || unit.touched)
+                        "
+                        class="required-alert alert alert-danger"
+                      >
+                        <span *ngIf="unit?.errors.required">
+                          This field is required.
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="form-group">
                       <label
                         >Description<span class="required-field">
                           *</span
@@ -94,7 +121,12 @@
                       ></app-file-upload>
                     </div>
                   </div>
-
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <h4>Medicine Inventory Management</h4>
+                    <hr />
+                  </div>
                   <div class="col-sm-6">
                     <div class="form-group">
                       <label>Price</label>
@@ -105,6 +137,19 @@
                         [(ngModel)]="product.price"
                         name="price"
                         #price="ngModel"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label>Available Quantity</label>
+                      <input
+                        type="number"
+                        class="form-control form-control-sm"
+                        placeholder=" "
+                        [(ngModel)]="product.availableQuantity"
+                        name="availableQuantity"
+                        #availableQuantity="ngModel"
                       />
                     </div>
                   </div>
@@ -156,6 +201,24 @@
                 </div>
                 <div class="col-md-8">
                   <span> {{ product.price || "N/A" }}</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 view-label-style">
+                  <label>Available Quantity</label>
+                </div>
+                <div class="col-md-8">
+                  <span> {{ product.availableQuantity || "N/A" }}</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 view-label-style">
+                  <label>Unit</label>
+                </div>
+                <div class="col-md-8">
+                  <span> {{ product.unit || "N/A" }}</span>
                 </div>
               </div>
 

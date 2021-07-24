@@ -43,9 +43,11 @@ export class ProductService {
     const formattedReq = {
       shopId: req.shopId,
       name: req.name,
+      unit: req.unit,
       description: req.description,
       stockAvailable: req.stockAvailable || true,
       price: req.price,
+      availableQuantity: req.availableQuantity || 0,
       image: req.image || "",
     };
     return new Promise((resolve, reject) =>
@@ -76,9 +78,11 @@ export class ProductService {
       id: req.id,
       shopId: req.shopId || this.gVariable.authentication.shopId,
       name: req.name,
+      unit: req.unit,
       description: req.description,
       image: req.image,
       price: req.price,
+      availableQuantity: req.availableQuantity || 0,
       stockAvailable: req.stockAvailable,
     };
     return new Promise((resolve, reject) =>

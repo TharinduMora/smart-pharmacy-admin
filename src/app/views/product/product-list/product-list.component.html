@@ -1,5 +1,26 @@
 <div class="animated fadeIn">
   <div class="row">
+    <div class="col-4">
+      <input
+        class="form-control mr-sm-2"
+        type="search"
+        placeholder="Search Medicine"
+        aria-label="Search"
+        [(ngModel)]="medicineKeyword"
+      />
+    </div>
+    <div class="col-2">
+      <button
+        class="btn btn-outline-success my-2 my-sm-0 btn-block"
+        type="button"
+        (click)="onClickSearch()"
+      >
+        Search
+      </button>
+    </div>
+  </div>
+  <br>
+  <div class="row">
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
@@ -20,8 +41,10 @@
             <tr>
               <th><input type="checkbox" disabled></th>
               <th>Name</th>
-              <th>Description</th>
+              <!-- <th>Description</th> -->
               <th>Price</th>
+              <th>Unit</th>
+              <th>Available Quantity</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -30,8 +53,10 @@
             <tr *ngFor="let record of gridRecordList; let i = index">
               <th><input type="checkbox" [(ngModel)]="record.isChecked"></th>
               <td>{{record.name || 'N/A'}}</td>
-              <td>{{record.description || 'N/A'}}</td>
+              <!-- <td>{{record.description || 'N/A'}}</td> -->
               <td>{{record.price || 'N/A'}}</td>
+              <td>{{record.unit || 'N/A'}}</td>
+              <td>{{record.availableQuantity || '0'}}</td>
               <td [ngStyle]="{color:record.status | statusColorPipe}">{{record.status | statusPipe}}</td>
               <td>
                 <button class="btn btn-success" *ngIf="actionRestrictionConfig.VIEW.isEnable"

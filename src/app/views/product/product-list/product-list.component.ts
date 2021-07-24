@@ -1,46 +1,45 @@
-import {Component, OnInit} from '@angular/core';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
-import {StaticConfig} from '../../../core/config';
-import {GlobalService, ToastService} from '../../../core/services';
-import {ProductService} from '../../../services';
-import {GlobalVariable} from '../../../core/com-classes';
-import {ProductViewComponent} from '../product-view/product-view.component';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { Component, OnInit } from "@angular/core";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
+import { StaticConfig } from "../../../core/config";
+import { GlobalService, ToastService } from "../../../core/services";
+import { ProductService } from "../../../services";
+import { GlobalVariable } from "../../../core/com-classes";
+import { ProductViewComponent } from "../product-view/product-view.component";
+import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: "app-product-list",
+  templateUrl: "./product-list.component.html",
+  styleUrls: ["./product-list.component.css"],
 })
 export class ProductListComponent implements OnInit {
-
   bsModalRef: BsModalRef;
   staticConfig = StaticConfig;
-
+  public medicineKeyword = "";
   actionRestrictionConfig = {
     VIEW: {
       isEnable: false,
-      functions: ['VIEW_PRODUCT_DETAILS']
+      functions: ["VIEW_PRODUCT_DETAILS"],
     },
     ADD: {
       isEnable: false,
-      functions: ['CREATE_PRODUCT']
+      functions: ["CREATE_PRODUCT"],
     },
     EDIT: {
       isEnable: false,
-      functions: ['UPDATE_PRODUCT']
+      functions: ["UPDATE_PRODUCT"],
     },
     UPDATE_STATUS: {
       isEnable: false,
-      functions: ['UPDATE_PRODUCT_STATUS']
-    }
+      functions: ["UPDATE_PRODUCT_STATUS"],
+    },
   };
 
   pagination = {
     pageSize: 1,
-    itemsPerPage: 10,
+    itemsPerPage: 5,
     maxPageNumberCount: 5,
-    recordCount: 0
+    recordCount: 0,
   };
 
   sevReq: any;
@@ -48,19 +47,27 @@ export class ProductListComponent implements OnInit {
   gridRecordList: any[] = [];
   selectedRecordList: any[] = [];
 
-  constructor(private productSev: ProductService, public modalService: BsModalService, public gVariable: GlobalVariable,
-              private gSev: GlobalService, private toast: ToastService) {
-    this.actionRestrictionConfig = this.gSev.getActionRestrictionConfigByConfigObj(this.actionRestrictionConfig);
+  constructor(
+    private productSev: ProductService,
+    public modalService: BsModalService,
+    public gVariable: GlobalVariable,
+    private gSev: GlobalService,
+    private toast: ToastService
+  ) {
+    this.actionRestrictionConfig =
+      this.gSev.getActionRestrictionConfigByConfigObj(
+        this.actionRestrictionConfig
+      );
   }
 
   initSevReq() {
     this.sevReq = {
-      'shopId': this.gVariable.authentication.shopId,
-      'offset': 0,
-      'limit': this.pagination.itemsPerPage,
-      'searchKeys': [],
-      'values': [],
-      'operators': []
+      shopId: this.gVariable.authentication.shopId,
+      offset: 0,
+      limit: this.pagination.itemsPerPage,
+      searchKeys: [],
+      values: [],
+      operators: [],
     };
   }
 
@@ -71,16 +78,16 @@ export class ProductListComponent implements OnInit {
 
   onGridAction(action, data) {
     switch (action) {
-      case 'add':
+      case "add":
         this.openProductForm(action, data);
         break;
-      case 'edit':
+      case "edit":
         this.openProductForm(action, data);
         break;
-      case 'view':
+      case "view":
         this.openProductForm(action, data);
         break;
-      case 'status-update':
+      case "status-update":
         this.updateProductStatus(data);
         break;
       default:
@@ -93,31 +100,35 @@ export class ProductListComponent implements OnInit {
       if (item.isChecked) {
         const req = {
           primaryId: item.id,
-          status: status
+          status: status,
         };
-        this.productSev.updateProductStatus(req).then((res: any) => {
-          if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
-            item.status = status;
-            item.isChecked = false;
-            this.toast.showSuccess(item.name + '" Status Successfully Updated');
-          } else {
+        this.productSev
+          .updateProductStatus(req)
+          .then((res: any) => {
+            if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
+              item.status = status;
+              item.isChecked = false;
+              this.toast.showSuccess(
+                item.name + '" Status Successfully Updated'
+              );
+            } else {
+              this.toast.showError(item.name + '" Status Updating failed.');
+            }
+          })
+          .catch(() => {
             this.toast.showError(item.name + '" Status Updating failed.');
-          }
-        }).catch(() => {
-          this.toast.showError(item.name + '" Status Updating failed.');
-        });
+          });
       }
     });
-
   }
 
   openProductForm(action, data) {
     const modelConfig: any = {
-      class: 'modal-lg',
+      class: "modal-lg",
       animated: true,
       keyboard: true,
       backdrop: true,
-      ignoreBackdropClick: true
+      ignoreBackdropClick: true,
     };
 
     this.bsModalRef = null;
@@ -125,9 +136,9 @@ export class ProductListComponent implements OnInit {
     this.bsModalRef.content.action = action;
     this.bsModalRef.content.data = data;
     this.bsModalRef.content.onClose.subscribe((response: any) => {
-      if (action === 'add' && response.id) {
+      if (action === "add" && response.id) {
         this.onAddNewItem(response);
-      } else if (action === 'edit' && response.id) {
+      } else if (action === "edit" && response.id) {
         this.onEditItem(response);
       }
     });
@@ -158,20 +169,32 @@ export class ProductListComponent implements OnInit {
 
   getGridRecordList() {
     this.gridRecordList = [];
-    this.productSev.productFindByCriteria(this.sevReq).then((res: any) => {
-      if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
-        this.gridRecordList = res.data;
-        if (this.pagination.recordCount === 0) {
+    this.productSev
+      .productFindByCriteria(this.sevReq)
+      .then((res: any) => {
+        if (res && res.status === StaticConfig.RESPONSE_STATUS.SUCCESS) {
+          this.gridRecordList = res.data;
           this.pagination.recordCount = res.recordCount;
-          // console.log(this.pagination)
+          // if (this.pagination.recordCount === 0) {
+          //   this.pagination.recordCount = res.recordCount;
+          //   // console.log(this.pagination)
+          // }
         }
-      }
-    }).catch((e) => {
-      console.log(e);
-    });
-
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
+  onClickSearch() {
+    this.sevReq.searchKeys = [];
+    this.sevReq.operators = [];
+    this.sevReq.values = [];
+    if (this.medicineKeyword !== "") {
+      this.sevReq.searchKeys.push("name");
+      this.sevReq.operators.push("like");
+      this.sevReq.values.push(this.medicineKeyword);
+    }
+    this.getGridRecordList();
+  }
 }
-
-

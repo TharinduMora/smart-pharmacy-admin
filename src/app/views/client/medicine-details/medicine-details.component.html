@@ -1,0 +1,33 @@
+<div class="row p-details-bg">
+  <div class="col-md-5">
+    <h5 class="pharmacy-name">Pharmacy : {{ medicineDetails?.shopName }}</h5>
+    <div class="image-container">
+      <div style="width: 100%; height: auto">
+        <img
+          [src]="globalVariable.appConfig.IMAGE_URL + medicineDetails?.image"
+          class="rounded"
+          alt="image"
+          style="width: 100%"
+        />
+      </div>
+    </div>
+    <a
+      *ngIf="medicineDetails"
+      [routerLink]="['/client/shop/', medicineDetails?.shopId]"
+      >Back to Pharmacy</a
+    >
+  </div>
+  <div class="col-md-7">
+    <div class="p-name">{{ medicineDetails?.name }}</div>
+    <div class="p-desc">
+      {{ medicineDetails?.description }}
+    </div>
+    <div class="p-price">
+      {{ medicineDetails?.price | number: "1.2-2" }} LKR
+      <span class="p-unit">({{ medicineDetails?.unit || "N/A" }})</span>
+    </div>
+    <div class="p-oos" *ngIf="medicineDetails?.availableQuantity <= 0">
+      <span>Out of Stock</span>
+    </div>
+  </div>
+</div>

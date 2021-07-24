@@ -8,6 +8,8 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { ClientRoutingModule } from "./client-routing.module";
+import { MedicineTileComponent } from './medicine-tile/medicine-tile.component';
+import { MedicineDetailsComponent } from './medicine-details/medicine-details.component';
 
 @NgModule({
   imports: [CommonModule, ClientRoutingModule, SharedModule, FormsModule],
@@ -16,6 +18,8 @@ import { ClientRoutingModule } from "./client-routing.module";
     ClientLayoutComponent,
     ShopComponent,
     PharmacyTileComponent,
+    MedicineTileComponent,
+    MedicineDetailsComponent,
   ],
 })
 export class ClientModule {}

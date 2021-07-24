@@ -56,6 +56,23 @@ export class ClientAPIService {
     );
   }
 
+  public findMedicineById(medId: number) {
+    return new Promise((resolve, reject) =>
+      this.httpService
+        .httpGet(ApiServiceConfig.CLIENT_API_SERVICE, "/product/" + medId, {}, {})
+        .then((data: any) => {
+          if (data) {
+            resolve(data);
+          } else {
+            reject({});
+          }
+        })
+        .catch((error: any) => {
+          reject(error);
+        })
+    );
+  }
+
   public findByMap(
     req: any,
     lat: number,
